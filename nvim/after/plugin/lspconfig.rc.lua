@@ -27,4 +27,19 @@ require('lspconfig')['tsserver'].setup{
 require('lspconfig')['pyright'].setup{
 	capabilities = capabilities, on_attach = on_attach
 }
-
+require('lspconfig')['cssmodules_ls'].setup{
+	capabilities = capabilities, on_attach = on_attach
+}
+require('lspconfig')['cssls'].setup{
+	capabilities = capabilities, on_attach = on_attach
+}
+require('lspconfig')['lua_ls'].setup{
+	capabilities = capabilities, on_attach = on_attach,
+	settings = {
+        Lua = {
+            diagnostics = {
+                globals = { 'vim' }
+            }
+        }
+    }
+}
