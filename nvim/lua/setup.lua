@@ -28,6 +28,7 @@ vim.opt.colorcolumn = "80"
 ----------------------------- Misc. Plugin Setup ---------------------------- #
 
 require('lualine').setup{ options = { theme = 'gruvbox-material' } }
+require('gitsigns').setup()
 require('mason').setup()
 require("mason-lspconfig").setup(
 	{ ensure_installed = { 'lua_ls', 'tsserver', 'pyright' }})
