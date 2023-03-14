@@ -34,7 +34,8 @@ vim.keymap.set('n', ';ff',
 	function()
 		builtin.find_files({
 			no_ignore = false,
-			hidden = true
+			hidden = false,
+            previewer = false
 		})
 	end)
 
