@@ -2,6 +2,7 @@ local telescope = require('telescope')
 local fb_actions = telescope.extensions.file_browser.actions
 
 telescope.setup {
+  previewer = false,
   defaults = { file_ignore_patterns = {"node_modules", ".git", "pycache"} },
   extensions = {
     file_browser = {
