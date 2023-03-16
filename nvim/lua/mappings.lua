@@ -7,7 +7,7 @@ local harpoon_ui = require('harpoon.ui')
 
 -- Split window
 vim.keymap.set('n', '<leader>v', ':vsplit<CR><C-w>l')
-vim.keymap.set('n', '<leader>s', ':split<CR><C-w>k')
+vim.keymap.set('n', '<leader>s', ':split<CR><C-w>j')
 
 -- Jump to window
 vim.keymap.set('n', '<leader>w', '<C-w>w')
@@ -25,7 +25,12 @@ vim.keymap.set('n', '<leader><down>', '<C-w>-')
 
 -------------------------------- Telescope ---------------------------------- #
 
-vim.keymap.set('n', ';g', builtin.live_grep)
+vim.keymap.set('n', ';g',
+    function ()
+        builtin.live_grep({
+            debounce = 100,
+        })
+    end)
 vim.keymap.set('n', ';b', builtin.buffers)
 vim.keymap.set('n', ';h', builtin.help_tags)
 vim.keymap.set('n', ';;', builtin.resume)
