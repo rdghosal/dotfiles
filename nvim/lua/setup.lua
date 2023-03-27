@@ -24,13 +24,14 @@ vim.opt.smarttab = true
 vim.opt.breakindent = true
 vim.opt.wrap = false
 vim.opt.colorcolumn = "80"
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 ----------------------------- Misc. Plugin Setup ---------------------------- #
 
-require('lualine').setup{ options = { theme = 'gruvbox-material' } }
+require('lualine').setup { options = { theme = 'gruvbox-material' } }
 require('gitsigns').setup()
 require('mason').setup()
 require("mason-lspconfig").setup(
-	{ ensure_installed = { 'lua_ls', 'tsserver', 'pyright' }})
+    { ensure_installed = { 'lua_ls', 'tsserver', 'pyright', 'clangd'} })
 require('nvim-ts-autotag').setup()
-

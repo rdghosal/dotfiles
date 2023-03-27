@@ -33,6 +33,9 @@ require('lspconfig')['cssmodules_ls'].setup{
 require('lspconfig')['cssls'].setup{
 	capabilities = capabilities, on_attach = on_attach
 }
+require('lspconfig')['clangd'].setup{
+	capabilities = capabilities, on_attach = on_attach
+}
 require('lspconfig')['lua_ls'].setup{
 	capabilities = capabilities, on_attach = on_attach,
 	settings = {

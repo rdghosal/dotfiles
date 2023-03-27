@@ -37,6 +37,7 @@ return require('packer').startup(function(use)
 
 -------------------------------- Utiliies ----------------------------------- #
 
+        use 'mattn/emmet-vim'
 		use 'tpope/vim-surround'
 		use 'tpope/vim-commentary'
 		use 'windwp/nvim-ts-autotag'
@@ -81,10 +82,10 @@ return require('packer').startup(function(use)
 		use({
 			"L3MON4D3/LuaSnip",
 			-- follow latest release.
-			tag = "v<CurrentMajor>.*",
+			-- tag = "v<CurrentMajor>.*",
 			-- install jsregexp (optional!:).
 			run = "make install_jsregexp",
-			config = function() require('config.snippets') end,
+			-- config = function() require('config.snippets') end,
 		})
 
 ---------------------------------- Git -------------------------------------- #

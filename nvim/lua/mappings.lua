@@ -26,7 +26,7 @@ vim.keymap.set('n', '<leader><down>', '<C-w>-')
 -------------------------------- Telescope ---------------------------------- #
 
 vim.keymap.set('n', ';g',
-    function ()
+    function()
         builtin.live_grep({
             debounce = 100,
         })
@@ -36,39 +36,43 @@ vim.keymap.set('n', ';h', builtin.help_tags)
 vim.keymap.set('n', ';;', builtin.resume)
 vim.keymap.set('n', ';d', builtin.diagnostics)
 vim.keymap.set('n', ';ff',
-	function()
-		builtin.find_files({
-			no_ignore = false,
-			hidden = false,
+    function()
+        builtin.find_files({
+            no_ignore = false,
+            hidden = false,
             previewer = false
-		})
-	end)
+        })
+    end)
 
 -- File browser
 local function telescope_buffer_dir()
-	return vim.fn.expand('%:p:h')
+    return vim.fn.expand('%:p:h')
 end
 
 vim.keymap.set("n", ";fb", function()
-	telescope.extensions.file_browser.file_browser({
-		path = "%:p:h",
-		cwd = telescope_buffer_dir(),
-		respect_gitignore = false,
-		hidden = true,
-		grouped = true,
-		previewer = true,
-		initial_mode = "normal",
-		layout_config = { height = 20 }
-	})
+    telescope.extensions.file_browser.file_browser({
+        path = "%:p:h",
+        cwd = telescope_buffer_dir(),
+        respect_gitignore = false,
+        hidden = true,
+        grouped = true,
+        previewer = true,
+        initial_mode = "normal",
+        layout_config = { height = 20 }
+    })
 end)
 
 -------------------------------- Harpoon ------------------------------------ #
 
-vim.keymap.set('n', '\\m', function ()
+vim.keymap.set('n', '\\m', function()
     print('--harpooned-->')
     harpoon_mark.add_file()
-    end)
+end)
 vim.keymap.set('n', '\\n', harpoon_ui.nav_next)
 vim.keymap.set('n', '\\p', harpoon_ui.nav_prev)
 vim.keymap.set('n', '\\l', harpoon_ui.toggle_quick_menu)
+
+--------------------------------- Emmet ------------------------------------- #
+
+vim.g.user_emmet_leader_key = '<C-e>'
 
