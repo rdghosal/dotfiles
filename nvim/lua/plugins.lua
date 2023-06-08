@@ -7,8 +7,7 @@ return require('packer').startup(function(use)
 
 ----------------------------------- UI -------------------------------------- #
 
-		-- use 'sainnhe/gruvbox-material'
-		use { "ellisonleao/gruvbox.nvim" }
+        use { "folke/tokyonight.nvim" }
 		use {
 		  'nvim-lualine/lualine.nvim',
 		  requires = { 'kyazdani42/nvim-web-devicons', opt = true }
@@ -26,13 +25,6 @@ return require('packer').startup(function(use)
 		use {
 		  'nvim-telescope/telescope.nvim', tag = '0.1.x',
 		  requires = { {'nvim-lua/plenary.nvim'} }
-		}
-		use {
-		"nvim-telescope/telescope-file-browser.nvim",
-			requires = {
-				"nvim-telescope/telescope.nvim",
-				"nvim-lua/plenary.nvim"
-			}
 		}
 
 -------------------------------- Utiliies ----------------------------------- #
@@ -56,6 +48,7 @@ return require('packer').startup(function(use)
 		use 'neovim/nvim-lspconfig'
 		use "williamboman/mason.nvim"
 		use "williamboman/mason-lspconfig.nvim"
+        use 'simrat39/rust-tools.nvim'
 		use 'mfussenegger/nvim-jdtls'
 		use 'jose-elias-alvarez/null-ls.nvim'
 		use 'MunifTanjim/prettier.nvim'

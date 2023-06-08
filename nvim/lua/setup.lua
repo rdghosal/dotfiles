@@ -1,9 +1,9 @@
 vim.cmd [[packadd packer.nvim]]
-vim.cmd [[colorscheme gruvbox]]
 
 vim.g.mapleader = ' '
-vim.o.background = 'dark'
-vim.opt.termguicolors = true
+-- vim.g.gruvbox_termcolors = 16
+-- vim.o.background = 'dark'
+-- vim.opt.termguicolors = true
 
 vim.scriptencoding = 'utf-8'
 vim.opt.encoding = 'utf-8'
@@ -24,14 +24,13 @@ vim.opt.smarttab = true
 vim.opt.breakindent = true
 vim.opt.wrap = false
 vim.opt.colorcolumn = "80"
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 ----------------------------- Misc. Plugin Setup ---------------------------- #
 
-require('lualine').setup { options = { theme = 'gruvbox-material' } }
+require('lualine').setup()
 require('gitsigns').setup()
 require('mason').setup()
 require("mason-lspconfig").setup(
-    { ensure_installed = { 'lua_ls', 'tsserver', 'pyright', 'clangd'} })
+    { ensure_installed = { 'lua_ls', 'tsserver', 'pyright', 'clangd', 'rust_analyzer' } })
 require('nvim-ts-autotag').setup()
+-- require('nvim-ts-autotag').setup()
