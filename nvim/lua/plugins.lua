@@ -13,6 +13,7 @@ return require('packer').startup(function(use)
 		  requires = { 'kyazdani42/nvim-web-devicons', opt = true }
 		}
 		use 'nvim-tree/nvim-web-devicons'
+		use { 'HiPhish/nvim-ts-rainbow2' }
 		use {
 			'nvim-treesitter/nvim-treesitter',
 			run = ':TSUpdate'
