@@ -52,13 +52,13 @@ vim.keymap.set('n', '<leader>ff',
 
 -------------------------------- Harpoon ------------------------------------ #
 
-vim.keymap.set('n', '\\m', function()
+vim.keymap.set('n', '<leader>a', function()
     print('--harpooned-->')
     harpoon_mark.add_file()
 end)
-vim.keymap.set('n', '\\n', harpoon_ui.nav_next)
-vim.keymap.set('n', '\\p', harpoon_ui.nav_prev)
-vim.keymap.set('n', '\\l', harpoon_ui.toggle_quick_menu)
+vim.keymap.set('n', '<leader>n', harpoon_ui.nav_next)
+vim.keymap.set('n', '<leader>p', harpoon_ui.nav_prev)
+vim.keymap.set('n', '<leader>e', harpoon_ui.toggle_quick_menu)
 
 --------------------------------- Emmet ------------------------------------- #
 
