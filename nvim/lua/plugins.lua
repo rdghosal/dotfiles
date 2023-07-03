@@ -20,7 +20,6 @@ return require('packer').startup(function(use)
 
     ------------------------------- Navigation ---------------------------------- #
     use { 'airblade/vim-rooter' }
-    use { 'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons' }
     use { 'ThePrimeagen/harpoon' }
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.x',
@@ -34,16 +33,16 @@ return require('packer').startup(function(use)
     use 'tpope/vim-surround'
     use 'tpope/vim-commentary'
     use 'windwp/nvim-ts-autotag'
+    use {
+        "windwp/nvim-autopairs",
+        config = function() require("nvim-autopairs").setup {} end
+    }
     use({
         "iamcco/markdown-preview.nvim",
         run = "cd app && npm install",
         setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
         ft = { "markdown" }
     })
-    use {
-        "windwp/nvim-autopairs",
-        config = function() require("nvim-autopairs").setup {} end
-    }
 
     ---------------------------- Language Servers ------------------------------- #
 
