@@ -1,17 +1,14 @@
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
-
 -- Language servers.
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local on_attach = function(client, bufnr)
-    -- Mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+    vim.keymap.set('n', 'K', function()
+        vim.lsp.buf.hover({
+            border = "single"
+        })
+    end, bufopts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
     vim.keymap.set('n', '<Shift-k>', vim.lsp.buf.signature_help, bufopts)
     vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
@@ -41,35 +38,6 @@ require('lspconfig')['cssls'].setup {
 require('lspconfig')['clangd'].setup {
     capabilities = capabilities, on_attach = on_attach
 }
-
-local opts = {
-  tools = {
-    runnables = {
-      use_telescope = true,
-    },
-    inlay_hints = {
-      auto = true,
-      show_parameter_hints = false,
-      parameter_hints_prefix = "",
-      other_hints_prefix = "",
-    },
-    server = {
-        standalone = true,
-    }
-  }
-}
--- require('rust-tools').setup(opts)
-require('lspconfig')['rust_analyzer'].setup {
-    capabilities = capabilities,
-    on_attach = on_attach,
-    settings = {
-        ['rust-analyzer'] = {
-            diagnostics = {
-                enable = true;
-            }
-        }
-    }
-}
 require('lspconfig')['lua_ls'].setup {
     capabilities = capabilities, on_attach = on_attach,
     settings = {
@@ -80,3 +48,32 @@ require('lspconfig')['lua_ls'].setup {
         }
     }
 }
+
+-- local opts = {
+--     tools = {
+--         runnables = {
+--             use_telescope = true,
+--         },
+--         inlay_hints = {
+--             auto = true,
+--             show_parameter_hints = false,
+--             parameter_hints_prefix = "",
+--             other_hints_prefix = "",
+--         },
+--         server = {
+--             standalone = true,
+--         }
+--     }
+-- }
+-- -- require('rust-tools').setup(opts)
+-- require('lspconfig')['rust_analyzer'].setup {
+--     capabilities = capabilities,
+--     on_attach = on_attach,
+--     settings = {
+--         ['rust-analyzer'] = {
+--             diagnostics = {
+--                 enable = true,
+--             }
+--         }
+--     }
+-- }

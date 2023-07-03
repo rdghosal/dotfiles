@@ -24,13 +24,3 @@ vim.opt.smarttab = true
 vim.opt.breakindent = true
 vim.opt.wrap = false
 vim.opt.colorcolumn = "80"
-
------------------------------ Misc. Plugin Setup ---------------------------- #
-
-require('lualine').setup()
-require('gitsigns').setup()
-require('mason').setup()
-require("mason-lspconfig").setup(
-    { ensure_installed = { 'lua_ls', 'tsserver', 'pyright', 'clangd', 'rust_analyzer' } })
-require('nvim-ts-autotag').setup()
--- require('nvim-ts-autotag').setup()
