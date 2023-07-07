@@ -48,6 +48,17 @@ require('lspconfig')['lua_ls'].setup {
         }
     }
 }
+require('lspconfig')['rust_analyzer'].setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    settings = {
+        ['rust-analyzer'] = {
+            diagnostics = {
+                enable = true,
+            }
+        }
+    }
+}
 
 -- local opts = {
 --     tools = {
@@ -62,18 +73,6 @@ require('lspconfig')['lua_ls'].setup {
 --         },
 --         server = {
 --             standalone = true,
---         }
---     }
--- }
--- -- require('rust-tools').setup(opts)
--- require('lspconfig')['rust_analyzer'].setup {
---     capabilities = capabilities,
---     on_attach = on_attach,
---     settings = {
---         ['rust-analyzer'] = {
---             diagnostics = {
---                 enable = true,
---             }
 --         }
 --     }
 -- }
