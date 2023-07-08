@@ -7,6 +7,7 @@ return require('packer').startup(function(use)
     ----------------------------------- UI -------------------------------------- #
 
     use { "folke/tokyonight.nvim" }
+    use { "lukas-reineke/indent-blankline.nvim" }
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
@@ -17,6 +18,7 @@ return require('packer').startup(function(use)
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
     }
+    use { 'nvim-treesitter/nvim-treesitter-context' }
 
     ------------------------------- Navigation ---------------------------------- #
     use { 'airblade/vim-rooter' }
