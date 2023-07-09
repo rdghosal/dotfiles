@@ -27,3 +27,5 @@ vim.opt.colorcolumn = "80"
 vim.opt.list = true
 vim.opt.listchars:append "space:·"
 vim.opt.listchars:append "eol:↵"
+vim.opt.listchars:append "tab:>-"
+vim.opt.guicursor = "n-c:block,v:hor50,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175"
