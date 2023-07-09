@@ -3,8 +3,7 @@ vim.cmd [[packadd packer.nvim]]
 vim.g.mapleader = ' '
 -- vim.g.gruvbox_termcolors = 16
 -- vim.o.background = 'dark'
--- vim.opt.termguicolors = true
-
+vim.opt.termguicolors = true
 vim.scriptencoding = 'utf-8'
 vim.opt.encoding = 'utf-8'
 vim.opt.fileencoding = 'utf-8'
@@ -24,3 +23,7 @@ vim.opt.smarttab = true
 vim.opt.breakindent = true
 vim.opt.wrap = false
 vim.opt.colorcolumn = "80"
+
+vim.opt.list = true
+vim.opt.listchars:append "space:·"
+vim.opt.listchars:append "eol:↵"
