@@ -68,6 +68,12 @@ vim.keymap.set('n', '<leader>fw',
             debounce = 100,
         })
     end)
+vim.keymap.set('n', '<leader>fc',
+    function()
+        builtin.grep_string({
+            debounce = 100,
+        })
+    end)
 
 -------------------------------- Harpoon ------------------------------------ #
 
