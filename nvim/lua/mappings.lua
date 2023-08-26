@@ -91,6 +91,10 @@ vim.keymap.set("n", "'f", harpoon_ui.nav_next)
 vim.keymap.set("n", "'b", harpoon_ui.nav_prev)
 vim.keymap.set("n", "'l", harpoon_ui.toggle_quick_menu)
 
+------------------------------ Neo-tree ------------------------------------- #
+
+vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<cr>")
+
 --------------------------------- Emmet ------------------------------------- #
 
 vim.g.user_emmet_leader_key = '<C-e>'
