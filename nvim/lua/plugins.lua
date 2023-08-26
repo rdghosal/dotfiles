@@ -3,22 +3,22 @@ return {
 
     {"folke/tokyonight.nvim"},
     {"lukas-reineke/indent-blankline.nvim"},
-    {'nvim-lualine/lualine.nvim', dependencies = {'nvim-tree/nvim-web-devicons', opt = true}},
-    {'HiPhish/nvim-ts-rainbow2'},
-    {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate'},
-    {'nvim-treesitter/nvim-treesitter-context'},
+    {"nvim-lualine/lualine.nvim", dependencies = {"nvim-tree/nvim-web-devicons", opt = true}},
+    {"HiPhish/nvim-ts-rainbow2"},
+    {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
+    {"nvim-treesitter/nvim-treesitter-context"},
 
 ------------------------------- Navigation ---------------------------------- #
 
-    {'airblade/vim-rooter'},
-    {'ThePrimeagen/harpoon'},
+    {"airblade/vim-rooter"},
+    {"ThePrimeagen/harpoon"},
     {
-        'nvim-telescope/telescope.nvim',
-        tag = '0.1.2',
-        branch = '0.1.x',
-        dependencies = {'nvim-lua/plenary.nvim'}
+        "nvim-telescope/telescope.nvim",
+        tag = "0.1.2",
+        branch = "0.1.x",
+        dependencies = {"nvim-lua/plenary.nvim"}
     },
-    {'christoomey/vim-tmux-navigator'},
+    {"christoomey/vim-tmux-navigator"},
     {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
@@ -31,10 +31,10 @@ return {
 
 ------------------------------- Utilities ----------------------------------- #
 
-    {'mattn/emmet-vim'},
-    {'tpope/vim-surround'},
-    {'tpope/vim-commentary'},
-    {'windwp/nvim-ts-autotag'},
+    {"mattn/emmet-vim"},
+    {"tpope/vim-surround"},
+    {"tpope/vim-commentary"},
+    {"windwp/nvim-ts-autotag"},
     {"windwp/nvim-autopairs", config = function() require("nvim-autopairs").setup() end },
     {
 	"iamcco/markdown-preview.nvim",
@@ -45,34 +45,34 @@ return {
 
 ---------------------------- Language Servers ------------------------------- #
 
-    {'neovim/nvim-lspconfig'},
+    {"neovim/nvim-lspconfig"},
     {"williamboman/mason.nvim"},
     {"williamboman/mason-lspconfig.nvim"},
-    {'simrat39/rust-tools.nvim'},
-    {'mfussenegger/nvim-jdtls'},
-    {'jose-elias-alvarez/null-ls.nvim'},
-    {'MunifTanjim/prettier.nvim'},
+    {"simrat39/rust-tools.nvim"},
+    {"mfussenegger/nvim-jdtls"},
+    {"jose-elias-alvarez/null-ls.nvim"},
+    {"MunifTanjim/prettier.nvim"},
 
 ----------------------------- Code completion ------------------------------- #
 
     {
-        'hrsh7th/nvim-cmp',
+        "hrsh7th/nvim-cmp",
         event = "InsertEnter",
-        dependencies = {'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-buffer'}
+        dependencies = {"hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer"}
     },
-    {'hrsh7th/cmp-path'},
-    {'hrsh7th/cmp-cmdline'},
+    {"hrsh7th/cmp-path"},
+    {"hrsh7th/cmp-cmdline"},
     {
         "L3MON4D3/LuaSnip",
         -- follow latest release.
         -- tag = "v<CurrentMajor>.*",
         -- install jsregexp (optional!:).
         run = "make install_jsregexp",
-        -- config = function() require('config.snippets') end,
+        -- config = function() require("config.snippets") end,
     },
 
 ---------------------------------- Git -------------------------------------- #
 
-    { 'tpope/vim-fugitive'},
-    { 'lewis6991/gitsigns.nvim'},
+    { "tpope/vim-fugitive"},
+    { "lewis6991/gitsigns.nvim"},
 }
