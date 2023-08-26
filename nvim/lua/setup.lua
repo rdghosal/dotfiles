@@ -21,7 +21,7 @@ vim.opt.expandtab = true
 vim.opt.ignorecase = true -- Case insensitive searching UNLESS /C or capital in search
 vim.opt.smarttab = true
 vim.opt.breakindent = true
-vim.opt.wrap = false
+vim.opt.wrap = true
 vim.opt.colorcolumn = "80"
 
 vim.opt.list = true
