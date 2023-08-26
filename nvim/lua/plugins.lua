@@ -1,79 +1,78 @@
--- Register plugins.
-return require('packer').startup(function(use)
-    -------------------------------- Installer ---------------------------------- #
+return {
+----------------------------------- UI -------------------------------------- #
 
-    use "wbthomason/packer.nvim"
+    {"folke/tokyonight.nvim"},
+    {"lukas-reineke/indent-blankline.nvim"},
+    {"nvim-lualine/lualine.nvim", dependencies = {"nvim-tree/nvim-web-devicons", opt = true}},
+    {"HiPhish/nvim-ts-rainbow2"},
+    {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
+    {"nvim-treesitter/nvim-treesitter-context"},
 
-    ----------------------------------- UI -------------------------------------- #
+------------------------------- Navigation ---------------------------------- #
 
-    use { "folke/tokyonight.nvim" }
-    use { "lukas-reineke/indent-blankline.nvim" }
-    use {
-        'nvim-lualine/lualine.nvim',
-        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-    }
-    use { 'nvim-tree/nvim-web-devicons' }
-    use { 'HiPhish/nvim-ts-rainbow2' }
-    use {
-        'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate'
-    }
-    use { 'nvim-treesitter/nvim-treesitter-context' }
+    {"airblade/vim-rooter"},
+    {"ThePrimeagen/harpoon"},
+    {
+        "nvim-telescope/telescope.nvim",
+        tag = "0.1.2",
+        branch = "0.1.x",
+        dependencies = {"nvim-lua/plenary.nvim"}
+    },
+    {"christoomey/vim-tmux-navigator"},
+    {
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        dependencies = {
+          "nvim-lua/plenary.nvim",
+          "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+          "MunifTanjim/nui.nvim",
+        }
+    },
 
-    ------------------------------- Navigation ---------------------------------- #
-    use { 'airblade/vim-rooter' }
-    use { 'ThePrimeagen/harpoon' }
-    use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.x',
-        requires = { { 'nvim-lua/plenary.nvim' } }
-    }
-    use { 'christoomey/vim-tmux-navigator' }
+------------------------------- Utilities ----------------------------------- #
 
-    -------------------------------- Utiliies ----------------------------------- #
-
-    use 'mattn/emmet-vim'
-    use 'tpope/vim-surround'
-    use 'tpope/vim-commentary'
-    use 'windwp/nvim-ts-autotag'
-    use {
-        "windwp/nvim-autopairs",
-        config = function() require("nvim-autopairs").setup {} end
-    }
-    use({
-        "iamcco/markdown-preview.nvim",
-        run = "cd app && npm install",
+    {"mattn/emmet-vim"},
+    {"tpope/vim-surround"},
+    {"tpope/vim-commentary"},
+    {"windwp/nvim-ts-autotag"},
+    {"windwp/nvim-autopairs", config = function() require("nvim-autopairs").setup() end },
+    {
+	"iamcco/markdown-preview.nvim",
+	build = "cd app && npm install",
         setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
-        ft = { "markdown" }
-    })
+        ft = { "markdown" },
+    },
 
-    ---------------------------- Language Servers ------------------------------- #
+---------------------------- Language Servers ------------------------------- #
 
-    use 'neovim/nvim-lspconfig'
-    use "williamboman/mason.nvim"
-    use "williamboman/mason-lspconfig.nvim"
-    use 'simrat39/rust-tools.nvim'
-    use 'mfussenegger/nvim-jdtls'
-    use 'jose-elias-alvarez/null-ls.nvim'
-    use 'MunifTanjim/prettier.nvim'
+    {"neovim/nvim-lspconfig"},
+    {"williamboman/mason.nvim"},
+    {"williamboman/mason-lspconfig.nvim"},
+    {"simrat39/rust-tools.nvim"},
+    {"mfussenegger/nvim-jdtls"},
+    {"jose-elias-alvarez/null-ls.nvim"},
+    {"MunifTanjim/prettier.nvim"},
 
-    ----------------------------- Code completion ------------------------------- #
+----------------------------- Code completion ------------------------------- #
 
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/cmp-path'
-    use 'hrsh7th/cmp-cmdline'
-    use 'hrsh7th/nvim-cmp'
-    use({
+    {
+        "hrsh7th/nvim-cmp",
+        event = "InsertEnter",
+        dependencies = {"hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer"}
+    },
+    {"hrsh7th/cmp-path"},
+    {"hrsh7th/cmp-cmdline"},
+    {
         "L3MON4D3/LuaSnip",
         -- follow latest release.
         -- tag = "v<CurrentMajor>.*",
         -- install jsregexp (optional!:).
         run = "make install_jsregexp",
-        -- config = function() require('config.snippets') end,
-    })
+        -- config = function() require("config.snippets") end,
+    },
 
-    ---------------------------------- Git -------------------------------------- #
+---------------------------------- Git -------------------------------------- #
 
-    use 'tpope/vim-fugitive'
-    use 'lewis6991/gitsigns.nvim'
-end)
+    { "tpope/vim-fugitive"},
+    { "lewis6991/gitsigns.nvim"},
+}
