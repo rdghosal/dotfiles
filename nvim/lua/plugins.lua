@@ -2,7 +2,7 @@ return {
 ----------------------------------- UI -------------------------------------- #
 
     {"folke/tokyonight.nvim"},
-    {"lukas-reineke/indent-blankline.nvim"},
+    -- {"lukas-reineke/indent-blankline.nvim"},
     {"nvim-lualine/lualine.nvim", dependencies = {"nvim-tree/nvim-web-devicons", opt = true}},
     {"HiPhish/nvim-ts-rainbow2"},
     {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
@@ -37,10 +37,10 @@ return {
     {"windwp/nvim-ts-autotag"},
     {"windwp/nvim-autopairs", config = function() require("nvim-autopairs").setup() end },
     {
-	"iamcco/markdown-preview.nvim",
-	build = "cd app && npm install",
-        setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
-        ft = { "markdown" },
+        "iamcco/markdown-preview.nvim",
+        build = "cd app && npm install",
+            setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
+            ft = { "markdown" },
     },
 
 ---------------------------- Language Servers ------------------------------- #
@@ -57,7 +57,6 @@ return {
 
     {
         "hrsh7th/nvim-cmp",
-        event = "InsertEnter",
         dependencies = {"hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer"}
     },
     {"hrsh7th/cmp-path"},
