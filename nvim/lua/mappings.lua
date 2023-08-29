@@ -11,6 +11,7 @@ vim.keymap.set('n', '<leader>x', '<cmd>Explore<CR>')
 -- Buffers
 vim.keymap.set('n', '[b', '<cmd>bprev<CR>')
 vim.keymap.set('n', ']b', '<cmd>bnext<CR>')
+vim.keymap.set('n', '<leader>tl', '<CMD>:set list!<CR>')
 
 -- Split window
 vim.keymap.set('n', '|', ':vsplit<CR><C-w>l')
