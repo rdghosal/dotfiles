@@ -99,3 +99,7 @@ vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<cr>")
 --------------------------------- Emmet ------------------------------------- #
 
 vim.g.user_emmet_leader_key = '<C-e>'
+
+--------------------------------- Black ------------------------------------- #
+
+vim.keymap.set("n", "<leader>fp", '<cmd>silent exec "!black %"<cr>')
