@@ -2,7 +2,7 @@ return {
 ----------------------------------- UI -------------------------------------- #
 
     {"folke/tokyonight.nvim"},
-    -- {"lukas-reineke/indent-blankline.nvim"},
+    {"lukas-reineke/indent-blankline.nvim"},
     {"nvim-lualine/lualine.nvim", dependencies = {"nvim-tree/nvim-web-devicons", opt = true}},
     {"HiPhish/nvim-ts-rainbow2"},
     {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
@@ -51,6 +51,7 @@ return {
     {"simrat39/rust-tools.nvim"},
     {"mfussenegger/nvim-jdtls"},
     {"jose-elias-alvarez/null-ls.nvim"},
+    {"mfussenegger/nvim-lint"},
     {"MunifTanjim/prettier.nvim"},
 
 ----------------------------- Code completion ------------------------------- #
