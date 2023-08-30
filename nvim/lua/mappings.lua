@@ -94,7 +94,7 @@ vim.keymap.set("n", "'l", harpoon_ui.toggle_quick_menu)
 
 ------------------------------ Neo-tree ------------------------------------- #
 
-vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<cr>")
+vim.keymap.set("n", "<leader>e", "<CMD>Neotree toggle<CR>")
 
 --------------------------------- Emmet ------------------------------------- #
 
@@ -102,4 +102,4 @@ vim.g.user_emmet_leader_key = '<C-e>'
 
 ----------------------------- Formatter ------------------------------------- #
 
-vim.keymap.set("n", "<leader>lf", "<cmd>Format<cr> | <cmd>retab<cr>")
+vim.keymap.set("n", "<leader>lf", "<CMD>Format<CR> | <CMD>retab<CR>")
