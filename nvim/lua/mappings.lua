@@ -100,6 +100,6 @@ vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<cr>")
 
 vim.g.user_emmet_leader_key = '<C-e>'
 
---------------------------------- Black ------------------------------------- #
+----------------------------- Formatter ------------------------------------- #
 
-vim.keymap.set("n", "<leader>fp", '<cmd>silent exec "!black %"<cr>')
+vim.keymap.set("n", "<leader>lf", "<cmd>Format<cr> | <cmd>retab<cr>")

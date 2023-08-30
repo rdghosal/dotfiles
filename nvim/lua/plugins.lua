@@ -51,6 +51,7 @@ return {
     {"simrat39/rust-tools.nvim"},
     {"mfussenegger/nvim-jdtls"},
     {"jose-elias-alvarez/null-ls.nvim"},
+    {"mhartington/formatter.nvim"},
     {"mfussenegger/nvim-lint"},
     {"MunifTanjim/prettier.nvim"},
 
