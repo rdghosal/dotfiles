@@ -9,6 +9,7 @@ vim.g.mapleader = ' '
 -- vim.g.gruvbox_termcolors = 16
 -- vim.o.background = 'dark'
 vim.opt.termguicolors = true
+vim.opt.laststatus = 3
 vim.scriptencoding = 'utf-8'
 vim.opt.encoding = 'utf-8'
 vim.opt.fileencoding = 'utf-8'
