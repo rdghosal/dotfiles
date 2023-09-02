@@ -25,6 +25,6 @@ require("tokyonight").setup({
 
 vim.cmd('colorscheme tokyonight-night')
 local colors = require("tokyonight.colors")
-vim.api.nvim_set_hl(0, "WinSeparator", { fg = colors.default.blue})
+vim.api.nvim_set_hl(0, "WinSeparator", { fg = colors.default.terminal_black})
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
