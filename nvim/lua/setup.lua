@@ -6,6 +6,7 @@ vim.cmd [[
 ]]
 
 vim.g.mapleader = ' '
+vim.api.nvim_exec('language ja_JP', true)
 -- vim.g.gruvbox_termcolors = 16
 -- vim.o.background = 'dark'
 vim.opt.termguicolors = true
