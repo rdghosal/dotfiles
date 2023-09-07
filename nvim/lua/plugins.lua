@@ -3,7 +3,7 @@ return {
 
     { "folke/tokyonight.nvim", lazy = false, priority = 1000 },
     { "lukas-reineke/indent-blankline.nvim" },
-    { "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons", opt = true } },
+    { "nvim-lualine/lualine.nvim", lazy = false, dependencies = { "nvim-tree/nvim-web-devicons", opt = true } },
     { "HiPhish/nvim-ts-rainbow2" },
     { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
     { "nvim-treesitter/nvim-treesitter-context" },
