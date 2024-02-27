@@ -1,9 +1,10 @@
 require("ibl").setup {
     scope = {
         char = "",
-        show_end = true,
-        show_exact_scope = true,
-        show_start = false,
+        enabled = true,
+        -- show_end = false,
+        -- show_exact_scope = true,
+        show_start = true,
     },
     whitespace = {
         remove_blankline_trail = false,
@@ -11,4 +12,4 @@ require("ibl").setup {
 
 }
 
-vim.api.nvim_set_hl(0, "IndentBlanklineSpaceChar", { fg = "none" })
+-- vim.api.nvim_set_hl(0, "IndentBlanklineSpaceChar", { fg = "none" })
