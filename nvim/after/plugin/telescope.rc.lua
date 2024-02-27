@@ -15,4 +15,4 @@ telescope.setup {
     },
   extensions = {},
 }
-telescope.load_extension 'harpoon'
+-- telescope.load_extension 'harpoon'

@@ -23,6 +23,18 @@ local on_attach = function(_, bufnr)
     vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
+require('lspconfig')['ruffls'].setup {
+    capabilities = capabilities, on_attach = on_attach
+}
+require('lspconfig')['yamlls'].setup {
+    capabilities = capabilities, on_attach = on_attach
+}
+require('lspconfig')['intelephense'].setup {
+    capabilities = capabilities, on_attach = on_attach
+}
+require('lspconfig')['gopls'].setup {
+    capabilities = capabilities, on_attach = on_attach
+}
 require('lspconfig')['tsserver'].setup {
     capabilities = capabilities, on_attach = on_attach
 }

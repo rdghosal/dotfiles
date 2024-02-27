@@ -9,7 +9,8 @@ require("formatter").setup({
     log_level = vim.log.levels.WARN,
     -- All formatter configurations are opt-in
     filetype = {
-        python = { require("formatter.filetypes.python").black },
+        python = { require("formatter.filetypes.python").ruff },
+        php = { require("formatter.filetypes.php").php_cs_fixer },
         -- Formatter configurations for filetype "lua" go here
         -- and will be executed in order
         lua = {

@@ -11,7 +11,6 @@ return {
     ------------------------------- Navigation ---------------------------------- #
 
     { "airblade/vim-rooter" },
-    { "ThePrimeagen/harpoon" },
     {
         "nvim-telescope/telescope.nvim",
         tag = "0.1.2",
@@ -75,10 +74,9 @@ return {
     {
         "L3MON4D3/LuaSnip",
         -- follow latest release.
-        -- tag = "v<CurrentMajor>.*",
-        -- install jsregexp (optional!:).
-        run = "make install_jsregexp",
-        -- config = function() require("config.snippets") end,
+        version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        -- install jsregexp (optional!).
+        build = "make install_jsregexp"
     },
 
     ---------------------------------- Git -------------------------------------- #

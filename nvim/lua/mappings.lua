@@ -1,7 +1,7 @@
 local builtin = require('telescope.builtin')
-local harpoon_mark = require('harpoon.mark')
-local harpoon_ui = require('harpoon.ui')
-local harpoon_term = require('harpoon.term')
+-- local harpoon_mark = require('harpoon.mark')
+-- local harpoon_ui = require('harpoon.ui')
+-- local harpoon_term = require('harpoon.term')
 
 --------------------------------- Windows ----------------------------------- #
 
@@ -78,19 +78,19 @@ vim.keymap.set('n', '<leader>fc',
 
 -------------------------------- Harpoon ------------------------------------ #
 
-vim.keymap.set("n", "'m", function()
-    print("lua: harpoon_mark.add_file()")
-    harpoon_mark.add_file()
-end)
+-- vim.keymap.set("n", "'m", function()
+--     print("lua: harpoon_mark.add_file()")
+--     harpoon_mark.add_file()
+-- end)
 
-vim.keymap.set("n", "'1", function() harpoon_ui.nav_file(1) end)
-vim.keymap.set("n", "'2", function() harpoon_ui.nav_file(2) end)
-vim.keymap.set("n", "'3", function() harpoon_ui.nav_file(3) end)
-vim.keymap.set("n", "'4", function() harpoon_ui.nav_file(4) end)
--- vim.keymap.set("n"' "t1", function() harpoon_term.gotoTerminal(1) end)
-vim.keymap.set("n", "'f", harpoon_ui.nav_next)
-vim.keymap.set("n", "'b", harpoon_ui.nav_prev)
-vim.keymap.set("n", "'l", harpoon_ui.toggle_quick_menu)
+-- vim.keymap.set("n", "'1", function() harpoon_ui.nav_file(1) end)
+-- vim.keymap.set("n", "'2", function() harpoon_ui.nav_file(2) end)
+-- vim.keymap.set("n", "'3", function() harpoon_ui.nav_file(3) end)
+-- vim.keymap.set("n", "'4", function() harpoon_ui.nav_file(4) end)
+-- -- vim.keymap.set("n"' "t1", function() harpoon_term.gotoTerminal(1) end)
+-- vim.keymap.set("n", "'f", harpoon_ui.nav_next)
+-- vim.keymap.set("n", "'b", harpoon_ui.nav_prev)
+-- vim.keymap.set("n", "'l", harpoon_ui.toggle_quick_menu)
 
 ------------------------------ Neo-tree ------------------------------------- #
 
