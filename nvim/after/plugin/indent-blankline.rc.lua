@@ -4,11 +4,11 @@ require("ibl").setup {
         enabled = true,
         -- show_end = false,
         -- show_exact_scope = true,
-        show_start = true,
+        -- show_start = true,
     },
-    whitespace = {
-        remove_blankline_trail = false,
-    }
+    -- whitespace = {
+    --     remove_blankline_trail = false,
+    -- }
 
 }
 
