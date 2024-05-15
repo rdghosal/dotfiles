@@ -26,6 +26,10 @@ require("tokyonight").setup({
 vim.cmd('colorscheme tokyonight')
 local colors = require("tokyonight.colors")
 vim.api.nvim_set_hl(0, "WinSeparator", { fg = colors.default.terminal_black })
+vim.api.nvim_set_hl(0, "CursorLineNr", { fg = colors.default.red, bold = true })
+vim.api.nvim_set_hl(0, "LineNr", { fg = colors.default.red, bold = true })
+vim.api.nvim_set_hl(0, "LineNrAbove", { fg = colors.default.dark5 })
+vim.api.nvim_set_hl(0, "LineNrBelow", { fg = colors.default.dark5 })
 
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
