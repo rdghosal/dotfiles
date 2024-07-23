@@ -30,6 +30,7 @@ vim.api.nvim_set_hl(0, "CursorLineNr", { fg = colors.default.yellow, bold = true
 vim.api.nvim_set_hl(0, "LineNr", { fg = colors.default.red, bold = true })
 vim.api.nvim_set_hl(0, "LineNrAbove", { fg = colors.default.dark5 })
 vim.api.nvim_set_hl(0, "LineNrBelow", { fg = colors.default.dark5 })
+vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = colors.default.blue })
 
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
