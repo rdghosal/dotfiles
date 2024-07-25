@@ -1,7 +1,7 @@
 return {
     ----------------------------------- UI -------------------------------------- #
 
-    { "folke/tokyonight.nvim", lazy = false, priority = 1000 },
+    { "EdenEast/nightfox.nvim", lazy = false, priority = 1000 },
     { "lukas-reineke/indent-blankline.nvim" },
     { "nvim-lualine/lualine.nvim", lazy = false, dependencies = { "nvim-tree/nvim-web-devicons", opt = true } },
     { "HiPhish/nvim-ts-rainbow2" },
