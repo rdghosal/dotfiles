@@ -11,7 +11,7 @@ config.font = wezterm.font_with_fallback(
 config.enable_tab_bar = false
 config.color_scheme = 'carbonfox'
 config.line_height = 1.25
-config.font_size = 15
+config.font_size = 16
 
 -- and finally, return the configuration to wezterm
 return config
