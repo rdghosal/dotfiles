@@ -6,7 +6,8 @@ local config = wezterm.config_builder()
 
 -- This is where you actually apply your config choices
 config.font = wezterm.font_with_fallback(
-  { 'Intel One Mono', { family = 'Symbols Nerd Font Mono', scale = 0.75 } }
+  { 'IntoneMono Nerd Font',
+  { family = 'Symbols Nerd Font Mono', scale = 0.75 } }
 )
 config.enable_tab_bar = false
 config.color_scheme = 'carbonfox'

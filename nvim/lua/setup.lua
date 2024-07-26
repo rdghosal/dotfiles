@@ -29,7 +29,7 @@ vim.opt.ignorecase = true -- Case insensitive searching UNLESS /C or capital in 
 vim.opt.smarttab = true
 vim.opt.breakindent = true
 vim.opt.wrap = true
-vim.opt.colorcolumn = "80"
+-- vim.opt.colorcolumn = "80"
 
 vim.opt.list = true
 vim.opt.listchars:append "space:·"
