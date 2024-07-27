@@ -54,7 +54,11 @@ vim.keymap.set('n', '<space>gp', '<cmd>Git push<CR>')
 vim.keymap.set('n', '<leader>b', builtin.buffers)
 vim.keymap.set('n', '<leader>h', builtin.help_tags)
 -- vim.keymap.set('n', '<leader>;', builtin.resume)
-vim.keymap.set('n', '<leader>d', builtin.diagnostics)
+
+-- NOTE: This is a workaround to a bug in v0.10:
+-- https://github.com/nvim-telescope/telescope.nvim/issues/2661
+vim.keymap.set('n', '<leader>d', function () builtin.diagnostics({severity_bound = 0}) end)
+
 vim.keymap.set('n', '<leader>ff',
     function()
         builtin.find_files({

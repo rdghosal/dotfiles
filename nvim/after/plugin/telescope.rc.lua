@@ -1,5 +1,6 @@
 local telescope = require('telescope')
 local utils = require('telescope.utils')
+
 telescope.setup {
   previewer = true,
   mirror = true,
