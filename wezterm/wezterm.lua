@@ -5,10 +5,7 @@ local wezterm = require('wezterm')
 local config = wezterm.config_builder()
 
 -- This is where you actually apply your config choices
-config.font = wezterm.font_with_fallback(
-  { 'IntoneMono Nerd Font',
-  { family = 'Symbols Nerd Font Mono', scale = 0.75 } }
-)
+config.font = wezterm.font_with_fallback({ 'IntoneMono Nerd Font' })
 config.enable_tab_bar = false
 config.color_scheme = 'carbonfox'
 config.line_height = 1.25
