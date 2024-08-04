@@ -41,3 +41,4 @@ vim.opt.scrolloff = 3
 
 vim.opt.undodir = os.getenv("HOME") .. "/.nvim/undo"
 vim.opt.undofile = true
+vim.wo.signcolumn = "yes"

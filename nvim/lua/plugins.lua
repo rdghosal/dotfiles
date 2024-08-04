@@ -1,9 +1,8 @@
 return {
   ----------------------------------- UI -------------------------------------- #
 
-  { "EdenEast/nightfox.nvim", lazy = false, priority = 1000 },
+  { "tinted-theming/base16-vim", priority = 1000 },
   { "lukas-reineke/indent-blankline.nvim" },
-  { "nvim-lualine/lualine.nvim", lazy = false, dependencies = { "nvim-tree/nvim-web-devicons", opt = true } },
   { "HiPhish/rainbow-delimiters.nvim" },
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
   { "nvim-treesitter/nvim-treesitter-context" },
