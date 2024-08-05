@@ -32,7 +32,7 @@ vim.opt.wrap = true
 vim.opt.colorcolumn = "80"
 
 vim.opt.list = true
-vim.opt.listchars:append "space:·"
+-- vim.opt.listchars:append "space:·"
 vim.opt.listchars:append "eol:↵"
 vim.opt.listchars:append "tab:>-"
 vim.opt.cursorline = false
@@ -42,3 +42,6 @@ vim.opt.scrolloff = 3
 vim.opt.undodir = os.getenv("HOME") .. "/.nvim/undo"
 vim.opt.undofile = true
 vim.wo.signcolumn = "yes"
+
+vim.api.nvim_set_hl(0, "VertSplit", { fg = "white" })
+vim.api.nvim_set_hl(0, "HorizSplit", { fg = "white" })

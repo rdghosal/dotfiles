@@ -1,7 +1,8 @@
 return {
   ----------------------------------- UI -------------------------------------- #
 
-  { "tinted-theming/base16-vim", priority = 1000 },
+  -- { "tinted-theming/base16-vim", priority = 1000 },
+  { "wincent/base16-nvim", lazy = false, priority = 1000 },
   { "lukas-reineke/indent-blankline.nvim" },
   { "HiPhish/rainbow-delimiters.nvim" },
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
