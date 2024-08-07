@@ -1,9 +1,11 @@
 return {
   ----------------------------------- UI -------------------------------------- #
 
-  -- { "tinted-theming/base16-vim", priority = 1000 },
-  { "wincent/base16-nvim", lazy = false, priority = 1000 },
-  { "lukas-reineke/indent-blankline.nvim" },
+  { "chriskempson/base16-vim", lazy = false, priority = 1000 },
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' }
+  },
   { "HiPhish/rainbow-delimiters.nvim" },
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
   { "nvim-treesitter/nvim-treesitter-context" },
@@ -25,7 +27,7 @@ return {
     branch = "v3.x",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      -- "nvim-tree/nvim-web-devicons",       -- not strictly required, but recommended
+      "nvim-tree/nvim-web-devicons",       -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
     },
   },
