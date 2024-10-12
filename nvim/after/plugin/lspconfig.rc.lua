@@ -11,7 +11,7 @@ local on_attach = function(_, bufnr)
     })
   end, bufopts)
   vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set("n", "<Shift-k>", vim.lsp.buf.signature_help, bufopts)
+  -- vim.keymap.set("n", "<Shift-k>", vim.lsp.buf.signature_help, bufopts)
   vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
   vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
   vim.keymap.set("n", "<space>wl", function()
@@ -26,17 +26,21 @@ local on_attach = function(_, bufnr)
   end, bufopts)
 end
 
-require("lspconfig")["yamlls"].setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
 require("lspconfig")["intelephense"].setup({
   capabilities = capabilities,
   on_attach = on_attach,
+  settings = {
+    intelephense = {
+      environment = {
+        phpVersion = "7.4.31",
+      }
+    }
+  }
 })
-require("lspconfig")["gopls"].setup({
+require("lspconfig")["yamlls"].setup({
   capabilities = capabilities,
   on_attach = on_attach,
+  settings = { format = { enable = false } }
 })
 require("lspconfig")["tsserver"].setup({
   capabilities = capabilities,
@@ -47,6 +51,26 @@ require("lspconfig")["html"].setup({
   on_attach = on_attach,
 })
 require("lspconfig")["pyright"].setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+require("lspconfig")["gopls"].setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+require("lspconfig")["terraformls"].setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+require("lspconfig")["bufls"].setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+require("lspconfig")["sqlls"].setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+require("lspconfig")["jsonls"].setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })

@@ -1,6 +1,7 @@
--- bootstrap lazy
 local plugins = require("plugins")
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
+-- bootstrap lazy
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     "git",

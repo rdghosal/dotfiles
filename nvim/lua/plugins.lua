@@ -1,7 +1,7 @@
 return {
   ----------------------------------- UI -------------------------------------- #
 
-  { "chriskempson/base16-vim", lazy = false, priority = 1000 },
+  { "wincent/base16-nvim", lazy = false, priority = 1000 },
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' }

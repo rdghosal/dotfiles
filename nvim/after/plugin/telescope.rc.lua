@@ -9,8 +9,10 @@ telescope.setup {
         sorting_strategy = "ascending",
         file_ignore_patterns = {
             "node_modules",
+            "vendor",
+            "site-packages",
             ".git",
-            "pycache"
+            "pycache",
         },
         layout_config = { prompt_position = "top" }
     },

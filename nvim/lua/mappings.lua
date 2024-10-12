@@ -64,19 +64,58 @@ vim.keymap.set('n', '<leader>ff',
         builtin.find_files({
             no_ignore = false,
             hidden = true,
-            previewer = true
+            previewer = true,
+            debounce = 250,
         })
     end)
+vim.keymap.set('n', '<leader>aff',
+    function()
+        builtin.find_files({
+            no_ignore = true,
+            hidden = true,
+            previewer = true,
+            debounce = 250,
+            file_ignore_patterns = {
+              '.git'
+            }
+        })
+    end)
+
 vim.keymap.set('n', '<leader>fw',
     function()
         builtin.live_grep({
-            debounce = 100,
+            debounce = 250,
         })
     end)
-vim.keymap.set('n', '<leader>fc',
+vim.keymap.set('n', '<leader>afw',
+    function()
+        builtin.live_grep({
+            no_ignore = true,
+            hidden = true,
+            previewer = true,
+            debounce = 250,
+            file_ignore_patterns = {
+              '.git'
+            }
+        })
+    end)
+
+vim.keymap.set('n', '<leader>gs',
     function()
         builtin.grep_string({
             debounce = 100,
+        })
+    end)
+vim.keymap.set('n', '<leader>ags',
+    function()
+        builtin.grep_string({
+            no_ignore = true,
+            hidden = true,
+            previewer = true,
+            debounce = 100,
+            file_ignore_patterns = {
+              '.git'
+            }
         })
     end)
 
@@ -106,4 +145,4 @@ vim.g.user_emmet_leader_key = '<C-e>'
 
 ----------------------------- Formatter ------------------------------------- #
 
-vim.keymap.set("n", "<leader>lf", "<CMD>Format<CR> | <CMD>retab<CR>")
+-- vim.keymap.set("n", "<leader>lf", "<CMD>Format<CR> | <CMD>retab<CR>")
