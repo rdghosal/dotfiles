@@ -32,23 +32,37 @@ config.color_scheme = 'Tomorrow Night (Gogh)'
 config.line_height = 1.50
 config.font_size = 15
 
+-- Clipboard configuration for tmux integration
+config.enable_csi_u_key_encoding = false
+
 config.keys = {
+  -- Option+Left/Right: word navigation (Alt+b / Alt+f)
+  -- Works in both tmux and regular WezTerm sessions
   {
     key = 'LeftArrow',
-    mod = 'OPT',
-    action = act.SendKey {
-      key = 'b',
-      mods = 'ALT',
-    }
+    mods = 'OPT',
+    action = act.SendKey { key = 'b', mods = 'ALT' },
   },
   {
     key = 'RightArrow',
-    mod = 'OPT',
-    action = act.SendKey {
-      key = 'f',
-      mods = 'ALT',
+    mods = 'OPT',
+    action = act.SendKey { key = 'f', mods = 'ALT' },
+  },
+  -- Cmd+V: Send Ctrl+A P to tmux for system clipboard paste
+  {
+    key = 'v',
+    mods = 'CMD',
+    action = act.Multiple {
+      act.SendKey { key = 'a', mods = 'CTRL' },
+      act.SendKey { key = 'P' },
     }
-  }
+  },
+  -- Cmd+C: Send to application
+  {
+    key = 'c',
+    mods = 'CMD',
+    action = act.CopyTo 'ClipboardAndPrimarySelection',
+  },
 }
 
 -- and finally, return the configuration to wezterm
