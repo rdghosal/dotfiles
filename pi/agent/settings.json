@@ -1,0 +1,18 @@
+{
+  "lastChangelogVersion": "0.61.1",
+  "defaultProvider": "opencode",
+  "defaultModel": "kimi-k2.5",
+  "hideThinkingBlock": false,
+  "theme": "tomorrow-night-van-gogh",
+  "defaultThinkingLevel": "medium",
+  "retry": {
+    "enabled": true,
+    "maxRetries": 3,
+    "delayMs": 1000
+  },
+  "compaction": {
+    "enabled": true,
+    "minMessages": 20,
+    "preserveRecentTurns": 3
+  }
+}

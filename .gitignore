@@ -2,3 +2,24 @@ nvim/plugin
 tmux/plugins
 .DS_Store
 test*
+
+# Generated session data
+pi/agent/sessions/
+pi/agent/auth.json
+
+# Generated database files
+*.mdb
+*.bak
+
+# App-generated cache/state directories
+cargo-insta/
+configstore/
+github-copilot/
+yarn/
+
+# Downloaded/generated theme files
+tmux/*.tmux
+
+# Local configuration
+opencode/
+
