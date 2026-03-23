@@ -1436,6 +1436,48 @@ export default function todosExtension(pi: ExtensionAPI) {
 		await ensureTodosDir(todosDir);
 		const settings = await readTodoSettings(todosDir);
 		await garbageCollectTodos(todosDir, settings);
+
+		// Check for .pi/current-todo marker file (auto-claim from todo-workers)
+		const currentTodoPath = path.join(ctx.cwd, ".pi", "current-todo");
+		if (existsSync(currentTodoPath)) {
+			try {
+				const todoId = readFileSync(currentTodoPath, "utf-8").trim();
+				const todoPath = getTodoPath(todosDir, todoId);
+				if (existsSync(todoPath)) {
+					const todo = await readTodoFile(todoPath);
+					if (todo && todo.status === "open") {
+						// Check if already claimed by another session
+						const currentSessionId = ctx.sessionManager.getSessionId();
+						if (todo.assigned_to_session && todo.assigned_to_session !== currentSessionId) {
+							if (ctx.hasUI) {
+								ctx.ui.notify(`Found current-todo marker, but ${formatTodoId(todoId)} is claimed by another session`, "warning");
+							}
+						} else {
+							// Auto-claim the todo
+							todo.assigned_to_session = currentSessionId;
+							await writeTodoFile(todoPath, todo);
+							if (ctx.hasUI) {
+								ctx.ui.notify(`Auto-claimed ${formatTodoId(todoId)}: ${todo.title}`, "info");
+							}
+						}
+					} else if (todo && todo.status !== "open") {
+						// Todo is closed, remove the marker
+						await fs.unlink(currentTodoPath).catch(() => {});
+						if (ctx.hasUI) {
+							ctx.ui.notify(`current-todo marker points to closed todo, removed`, "warning");
+						}
+					}
+				} else {
+					// Todo doesn't exist, remove stale marker
+					await fs.unlink(currentTodoPath).catch(() => {});
+					if (ctx.hasUI) {
+						ctx.ui.notify(`current-todo marker is stale, removed`, "warning");
+					}
+				}
+			} catch (e) {
+				// Ignore errors reading marker file
+			}
+		}
 	});
 
 	const todosDirLabel = getTodosDirLabel(process.cwd());
