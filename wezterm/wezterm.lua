@@ -48,14 +48,22 @@ config.keys = {
     mods = 'OPT',
     action = act.SendKey { key = 'f', mods = 'ALT' },
   },
-  -- Cmd+V: Send Ctrl+A P to tmux for system clipboard paste
+  -- Cmd+V: Conditional - tmux paste in tmux, native paste elsewhere
   {
     key = 'v',
     mods = 'CMD',
-    action = act.Multiple {
-      act.SendKey { key = 'a', mods = 'CTRL' },
-      act.SendKey { key = 'P' },
-    }
+    action = wezterm.action_callback(function(window, pane)
+      if os.getenv('TMUX') then
+        -- In tmux: send prefix + P
+        window:perform_action(act.Multiple {
+          act.SendKey { key = 'a', mods = 'CTRL' },
+          act.SendKey { key = 'P' },
+        }, pane)
+      else
+        -- Not in tmux: native paste
+        window:perform_action(act.PasteFrom 'Clipboard', pane)
+      end
+    end),
   },
   -- Cmd+C: Send to application
   {
