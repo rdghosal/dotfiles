@@ -1821,13 +1821,25 @@ export default function todosExtension(pi: ExtensionAPI) {
 			const displayId = formatTodoId(id);
 
 			// Create initial todo file with optional title from args
+			const defaultBody = `## Description
+
+Ask questions when you are unsure. Do not make assumptions.
+
+## Acceptance Criteria
+
+- [ ] 
+
+## References
+
+- 
+`;
 			const todo: TodoRecord = {
 				id,
 				title: input || "",
 				tags: [],
 				status: "open",
 				created_at: new Date().toISOString(),
-				body: "",
+				body: defaultBody,
 			};
 
 			await writeTodoFile(filePath, todo);
