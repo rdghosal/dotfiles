@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.62.0",
   "defaultProvider": "opencode",
-  "defaultModel": "kimi-k2.5",
+  "defaultModel": "glm-5",
   "hideThinkingBlock": false,
   "theme": "tomorrow-night-van-gogh",
   "defaultThinkingLevel": "medium",

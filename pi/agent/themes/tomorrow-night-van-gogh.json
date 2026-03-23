@@ -41,7 +41,7 @@
     "mdLink": "blue",
     "mdLinkUrl": "cyan",
     "mdCode": "green",
-    "mdCodeBlock": "#282a2e",
+    "mdCodeBlock": "fg",
     "mdCodeBlockBorder": "gray",
     "mdQuote": "gray",
     "mdQuoteBorder": "darkGray",
