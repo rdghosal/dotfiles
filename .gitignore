@@ -23,3 +23,4 @@ tmux/*.tmux
 # Local configuration
 opencode/
 op/
+node_modules/
