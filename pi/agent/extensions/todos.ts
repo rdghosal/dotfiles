@@ -36,6 +36,7 @@ import path from "node:path";
 import fs from "node:fs/promises";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import crypto from "node:crypto";
+import { spawn } from "node:child_process";
 import {
 	Container,
 	type Focusable,
@@ -1794,6 +1795,56 @@ export default function todosExtension(pi: ExtensionAPI) {
 				text = appendExpandHint(theme, text);
 			}
 			return new Text(text, 0, 0);
+		},
+	});
+
+	pi.registerCommand("todo", {
+		description: "Create a new todo and open it in nvim (splits current tmux pane)",
+		getArgumentCompletions: () => null,
+		handler: async (args, ctx) => {
+			const todosDir = getTodosDir(ctx.cwd);
+			const input = (args ?? "").trim();
+
+			// Check if we're in tmux
+			if (!process.env.TMUX) {
+				if (ctx.hasUI) {
+					ctx.ui.notify("Not in a tmux session. Cannot split pane.", "error");
+				} else {
+					console.log("Error: Not in a tmux session. Cannot split pane.");
+				}
+				return;
+			}
+
+			await ensureTodosDir(todosDir);
+			const id = await generateTodoId(todosDir);
+			const filePath = getTodoPath(todosDir, id);
+			const displayId = formatTodoId(id);
+
+			// Create initial todo file with optional title from args
+			const todo: TodoRecord = {
+				id,
+				title: input || "",
+				tags: [],
+				status: "open",
+				created_at: new Date().toISOString(),
+				body: "",
+			};
+
+			await writeTodoFile(filePath, todo);
+
+			// Split current tmux pane and open nvim
+			const absolutePath = path.resolve(filePath);
+			const child = spawn("tmux", ["split-window", "-h", "nvim", absolutePath], {
+				stdio: "ignore",
+				detached: true,
+			});
+			child.unref();
+
+			if (ctx.hasUI) {
+				ctx.ui.notify(`Created ${displayId}`, "success");
+			} else {
+				console.log(`Created ${displayId}: ${absolutePath}`);
+			}
 		},
 	});
 
