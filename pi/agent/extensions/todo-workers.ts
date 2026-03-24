@@ -111,12 +111,12 @@ async function listAvailableTodos(cwd: string): Promise<TodoInfo[]> {
 						tags: frontMatter.tags || [],
 					});
 				}
-			} catch {
-				// Skip unreadable todos
+			} catch (e) {
+				console.error(`Failed to read todo ${id}:`, e instanceof Error ? e.message : String(e));
 			}
 		}
-	} catch {
-		// Return empty if can't read directory
+	} catch (e) {
+		console.error(`Failed to read todos directory:`, e instanceof Error ? e.message : String(e));
 	}
 	
 	// Sort by created_at desc (extract from id which is hex timestamp)
@@ -376,10 +376,6 @@ async function runToolAndNotify(
 	ctx: ExtensionContext,
 	force: boolean = false,
 ) {
-	if (!ctx) {
-		console.error("Extension context not available");
-		return;
-	}
 	const gitRoot = getGitRoot(ctx.cwd);
 	if (!gitRoot) {
 		notify(ctx, "Error: Not in a git repository", "error");
