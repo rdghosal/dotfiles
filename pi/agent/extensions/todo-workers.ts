@@ -19,6 +19,14 @@ import { spawn, execSync } from "node:child_process";
 
 const WORKERS_FILE = ".pi/workers.json";
 const PANE_CREATION_DELAY_MS = 500;
+const TODO_DIR_NAME = ".pi/todos";
+
+interface TodoInfo {
+	id: string;
+	title: string;
+	status: string;
+	tags: string[];
+}
 
 interface WorkerInfo {
 	worktree: string;
@@ -55,6 +63,64 @@ function shellEscape(str: string): string {
 
 function getWorkersFilePath(cwd: string): string {
 	return path.join(cwd, WORKERS_FILE);
+}
+
+function getTodosDir(cwd: string): string {
+	return path.join(cwd, TODO_DIR_NAME);
+}
+
+async function listAvailableTodos(cwd: string): Promise<TodoInfo[]> {
+	const todosDir = getTodosDir(cwd);
+	if (!existsSync(todosDir)) return [];
+	
+	const todos: TodoInfo[] = [];
+	try {
+		const entries = await fs.readdir(todosDir);
+		for (const entry of entries) {
+			if (!entry.endsWith(".md")) continue;
+			const id = entry.slice(0, -3);
+			const filePath = path.join(todosDir, entry);
+			try {
+				const content = await fs.readFile(filePath, "utf8");
+				// Parse front matter (JSON block at start of file)
+				const lines = content.split("\n");
+				let jsonText = "";
+				let inJson = false;
+				let braceCount = 0;
+				for (const line of lines) {
+					if (!inJson && line.trim().startsWith("{")) {
+						inJson = true;
+					}
+					if (inJson) {
+						jsonText += line + "\n";
+						for (const char of line) {
+							if (char === "{") braceCount++;
+							if (char === "}") braceCount--;
+						}
+						if (braceCount === 0 && jsonText.trim()) {
+							break;
+						}
+					}
+				}
+				if (jsonText) {
+					const frontMatter = JSON.parse(jsonText);
+					todos.push({
+						id,
+						title: frontMatter.title || "(untitled)",
+						status: frontMatter.status || "open",
+						tags: frontMatter.tags || [],
+					});
+				}
+			} catch {
+				// Skip unreadable todos
+			}
+		}
+	} catch {
+		// Return empty if can't read directory
+	}
+	
+	// Sort by created_at desc (extract from id which is hex timestamp)
+	return todos.sort((a, b) => b.id.localeCompare(a.id));
 }
 
 async function readWorkersState(cwd: string): Promise<WorkersState> {
@@ -310,6 +376,10 @@ async function runToolAndNotify(
 	ctx: ExtensionContext,
 	force: boolean = false,
 ) {
+	if (!ctx) {
+		console.error("Extension context not available");
+		return;
+	}
 	const gitRoot = getGitRoot(ctx.cwd);
 	if (!gitRoot) {
 		notify(ctx, "Error: Not in a git repository", "error");
@@ -375,6 +445,7 @@ export default function todoWorkersExtension(pi: ExtensionAPI) {
 	pi.registerCommand("todo-start", {
 		description: "Start a worker for a todo (creates worktree + tmux pane)",
 		getArgumentCompletions: async (prefix: string, ctx: ExtensionContext) => {
+			if (!ctx) return [];
 			const todosDir = path.join(ctx.cwd, ".pi", "todos");
 			if (!existsSync(todosDir)) return [];
 			try {
@@ -389,10 +460,32 @@ export default function todoWorkersExtension(pi: ExtensionAPI) {
 			}
 		},
 		handler: async (args, ctx) => {
-			const todoId = args?.trim();
-			if (!todoId) {
-				notify(ctx, "Usage: /todo-start <todo-id>", "error");
+			if (!ctx) {
+				console.error("Extension context not available");
 				return;
+			}
+			let todoId = args?.trim();
+			if (!todoId) {
+				// Show list of available todos for selection
+				const todos = await listAvailableTodos(ctx.cwd);
+				if (todos.length === 0) {
+					notify(ctx, "No todos found in .pi/todos/", "warning");
+					return;
+				}
+				
+				// Format: "TODO-id: title [tag1, tag2] (status)"
+				const items = todos.map((todo) => {
+					const displayId = `TODO-${todo.id}`;
+					const tags = todo.tags.length > 0 ? ` [${todo.tags.join(", ")}]` : "";
+					return `${displayId}: ${todo.title}${tags} (${todo.status})`;
+				});
+				
+				const selected = await ctx.ui.select("Select a todo to start working on:", items);
+				if (!selected) return; // User cancelled
+				
+				// Extract TODO-ID from the selected string
+				const match = selected.match(/^(TODO-[a-f0-9]+):/);
+				todoId = match ? match[1] : selected;
 			}
 			await runToolAndNotify("start", todoId, ctx);
 		},
@@ -401,20 +494,25 @@ export default function todoWorkersExtension(pi: ExtensionAPI) {
 	pi.registerCommand("todo-stop", {
 		description: "Stop a worker and cleanup worktree. Use --force to skip confirmation.",
 		getArgumentCompletions: async (_prefix: string, ctx: ExtensionContext) => {
+			if (!ctx) return [];
 			const gitRoot = getGitRoot(ctx.cwd);
 			if (!gitRoot) return [];
 			const workers = await readWorkersState(gitRoot);
 			return Object.keys(workers).map((id) => `TODO-${id}`);
 		},
 		handler: async (args, ctx) => {
+			if (!ctx) {
+				console.error("Extension context not available");
+				return;
+			}
 			const parts = (args ?? "").trim().split(/\s+/);
 			const forceIndex = parts.indexOf("--force");
 			const force = forceIndex !== -1;
 			if (force) parts.splice(forceIndex, 1);
-			const todoId = parts.join(" ");
+			let todoId = parts.join(" ");
 			if (!todoId) {
-				notify(ctx, "Usage: /todo-stop <todo-id> [--force]", "error");
-				return;
+				todoId = await ctx.ui.input("Enter todo ID:", "TODO-abc123");
+				if (!todoId) return; // User cancelled
 			}
 			await runToolAndNotify("stop", todoId, ctx, force);
 		},
@@ -424,6 +522,10 @@ export default function todoWorkersExtension(pi: ExtensionAPI) {
 		description: "List active todo workers",
 		getArgumentCompletions: () => null,
 		handler: async (_args, ctx) => {
+			if (!ctx) {
+				console.error("Extension context not available");
+				return;
+			}
 			await runToolAndNotify("list", undefined, ctx);
 		},
 	});
@@ -432,6 +534,10 @@ export default function todoWorkersExtension(pi: ExtensionAPI) {
 		description: "Tile all worker panes in a new window",
 		getArgumentCompletions: () => null,
 		handler: async (_args, ctx) => {
+			if (!ctx) {
+				console.error("Extension context not available");
+				return;
+			}
 			await runToolAndNotify("layout", undefined, ctx);
 		},
 	});
