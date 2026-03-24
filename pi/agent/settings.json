@@ -4,7 +4,7 @@
   "defaultModel": "glm-5",
   "hideThinkingBlock": false,
   "theme": "tomorrow-night-van-gogh",
-  "defaultThinkingLevel": "medium",
+  "defaultThinkingLevel": "high",
   "retry": {
     "enabled": true,
     "maxRetries": 3,
