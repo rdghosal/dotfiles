@@ -42,6 +42,14 @@ const TodoWorkerParams = Type.Object({
 
 type TodoWorkerAction = "start" | "stop" | "list" | "layout";
 
+/**
+ * Escapes a string for safe use in shell commands by wrapping in single quotes
+ * and escaping any embedded single quotes.
+ */
+function shellEscape(str: string): string {
+	return `'${str.replace(/'/g, "'\"'\"'")}'`;
+}
+
 // --- Helper functions ---
 
 function getWorkersFilePath(cwd: string): string {
@@ -204,17 +212,17 @@ async function handleStop(todoIdRaw: string, gitRoot: string, ctx: ExtensionCont
 	try {
 		// Kill tmux pane
 		try {
-			execSync(`tmux kill-pane -t ${worker.pane}`, { encoding: "utf-8" });
+			execSync(`tmux kill-pane -t ${shellEscape(worker.pane)}`, { encoding: "utf-8" });
 		} catch {
 			// Pane may already be closed
 		}
 
 		// Remove worktree
-		execSync(`git worktree remove "${worker.worktree}"`, { cwd: gitRoot, encoding: "utf-8" });
+		execSync(`git worktree remove ${shellEscape(worker.worktree)}`, { cwd: gitRoot, encoding: "utf-8" });
 
 		// Delete branch (may fail if unmerged)
 		try {
-			execSync(`git branch -D ${worker.branch}`, { cwd: gitRoot, encoding: "utf-8" });
+			execSync(`git branch -D ${shellEscape(worker.branch)}`, { cwd: gitRoot, encoding: "utf-8" });
 		} catch {
 			// Branch has unmerged changes, keep it
 		}
@@ -265,7 +273,7 @@ async function handleLayout(gitRoot: string): Promise<ToolResult> {
 				execSync("tmux split-window -h", { encoding: "utf-8" });
 			}
 			execSync(`tmux select-pane -t ${i}`, { encoding: "utf-8" });
-			execSync(`tmux send-keys -t ${i} "cd ${info.worktree} && pi" Enter`, { encoding: "utf-8" });
+			execSync(`tmux send-keys -t ${i} ${shellEscape(`cd ${info.worktree} && pi`)} Enter`, { encoding: "utf-8" });
 		}
 
 		execSync("tmux select-layout tiled", { encoding: "utf-8" });
