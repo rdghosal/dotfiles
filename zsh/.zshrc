@@ -8,6 +8,8 @@ alias nv="nvim ."
 alias python="python3.11"
 alias cl="clear"
 export EDITOR="nvim"
+export PAGER="bat --paging=never"
+export BAT_THEME="Tomorrow-Night"
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
