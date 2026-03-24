@@ -38,6 +38,7 @@ interface ToolResult {
 const TodoWorkerParams = Type.Object({
 	action: StringEnum(["start", "stop", "list", "layout"]),
 	id: Type.Optional(Type.String()),
+	force: Type.Optional(Type.Boolean({ description: "Skip confirmation prompt for destructive operations" })),
 });
 
 type TodoWorkerAction = "start" | "stop" | "list" | "layout";
@@ -189,7 +190,12 @@ async function handleStart(todoIdRaw: string, gitRoot: string, ctx: ExtensionCon
 	}
 }
 
-async function handleStop(todoIdRaw: string, gitRoot: string, ctx: ExtensionContext): Promise<ToolResult> {
+async function handleStop(
+	todoIdRaw: string,
+	gitRoot: string,
+	ctx: ExtensionContext,
+	force: boolean = false,
+): Promise<ToolResult> {
 	const todoId = parseTodoId(todoIdRaw);
 	const displayId = formatTodoId(todoId);
 	const workers = await readWorkersState(gitRoot);
@@ -207,6 +213,17 @@ async function handleStop(todoIdRaw: string, gitRoot: string, ctx: ExtensionCont
 				text: `Warning: ${displayId} has uncommitted changes. Commit or stash before stopping.`,
 			}],
 		};
+	}
+
+	// Require confirmation unless force is set
+	if (!force) {
+		const message = `This will:\n• Kill tmux pane ${worker.pane}\n• Remove worktree at ${worker.worktree}\n• Delete branch ${worker.branch}\n\nContinue?`;
+		const confirmed = ctx.hasUI
+			? await ctx.ui.confirm("Stop worker?", message)
+			: true; // Non-interactive mode defaults to proceeding
+		if (!confirmed) {
+			return { content: [{ type: "text", text: "Operation cancelled" }] };
+		}
 	}
 
 	try {
@@ -287,7 +304,12 @@ async function handleLayout(gitRoot: string): Promise<ToolResult> {
 
 // --- Command handler helper ---
 
-async function runToolAndNotify(action: TodoWorkerAction, id: string | undefined, ctx: ExtensionContext) {
+async function runToolAndNotify(
+	action: TodoWorkerAction,
+	id: string | undefined,
+	ctx: ExtensionContext,
+	force: boolean = false,
+) {
 	const gitRoot = getGitRoot(ctx.cwd);
 	if (!gitRoot) {
 		notify(ctx, "Error: Not in a git repository", "error");
@@ -304,7 +326,7 @@ async function runToolAndNotify(action: TodoWorkerAction, id: string | undefined
 			result = await handleStart(id!, gitRoot, ctx);
 			break;
 		case "stop":
-			result = await handleStop(id!, gitRoot, ctx);
+			result = await handleStop(id!, gitRoot, ctx, force);
 			break;
 		case "list":
 			result = await handleList(gitRoot);
@@ -341,7 +363,7 @@ export default function todoWorkersExtension(pi: ExtensionAPI) {
 					return handleStart(params.id, gitRoot, ctx);
 				case "stop":
 					if (!params.id) return errorResult("Error: id required for stop action");
-					return handleStop(params.id, gitRoot, ctx);
+					return handleStop(params.id, gitRoot, ctx, params.force);
 				case "list":
 					return handleList(gitRoot);
 				case "layout":
@@ -377,7 +399,7 @@ export default function todoWorkersExtension(pi: ExtensionAPI) {
 	});
 
 	pi.registerCommand("todo-stop", {
-		description: "Stop a worker and cleanup worktree",
+		description: "Stop a worker and cleanup worktree. Use --force to skip confirmation.",
 		getArgumentCompletions: async (_prefix: string, ctx: ExtensionContext) => {
 			const gitRoot = getGitRoot(ctx.cwd);
 			if (!gitRoot) return [];
@@ -385,12 +407,16 @@ export default function todoWorkersExtension(pi: ExtensionAPI) {
 			return Object.keys(workers).map((id) => `TODO-${id}`);
 		},
 		handler: async (args, ctx) => {
-			const todoId = args?.trim();
+			const parts = (args ?? "").trim().split(/\s+/);
+			const forceIndex = parts.indexOf("--force");
+			const force = forceIndex !== -1;
+			if (force) parts.splice(forceIndex, 1);
+			const todoId = parts.join(" ");
 			if (!todoId) {
-				notify(ctx, "Usage: /todo-stop <todo-id>", "error");
+				notify(ctx, "Usage: /todo-stop <todo-id> [--force]", "error");
 				return;
 			}
-			await runToolAndNotify("stop", todoId, ctx);
+			await runToolAndNotify("stop", todoId, ctx, force);
 		},
 	});
 
