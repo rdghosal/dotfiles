@@ -8,7 +8,7 @@ alias nv="nvim ."
 alias python="python3.11"
 alias cl="clear"
 export EDITOR="nvim"
-export PAGER="bat --paging=never"
+export PAGER="bat"
 export BAT_THEME="Tomorrow-Night"
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
