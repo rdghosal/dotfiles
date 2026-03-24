@@ -37,7 +37,7 @@
     "toolErrorBg": "#2e2828",
     "toolTitle": "yellow",
     "toolOutput": "fg",
-    "mdHeading": "orange",
+    "mdHeading": "blue",
     "mdLink": "blue",
     "mdLinkUrl": "cyan",
     "mdCode": "green",
@@ -46,7 +46,7 @@
     "mdQuote": "gray",
     "mdQuoteBorder": "darkGray",
     "mdHr": "darkGray",
-    "mdListBullet": "yellow",
+    "mdListBullet": "cyan",
     "toolDiffAdded": "green",
     "toolDiffRemoved": "red",
     "toolDiffContext": "gray",
@@ -57,14 +57,14 @@
     "syntaxString": "green",
     "syntaxNumber": "orange",
     "syntaxType": "cyan",
-    "syntaxOperator": "orange",
+    "syntaxOperator": "fg",
     "syntaxPunctuation": "gray",
     "thinkingOff": "gray",
     "thinkingMinimal": "darkGray",
     "thinkingLow": "cyan",
     "thinkingMedium": "blue",
     "thinkingHigh": "purple",
-    "thinkingXhigh": "orange",
-    "bashMode": "orange"
+    "thinkingXhigh": "red",
+    "bashMode": "cyan"
   }
 }
