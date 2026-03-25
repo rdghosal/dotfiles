@@ -14,52 +14,57 @@
  * PI_TOOL_GUIDE_PROVIDERS="zhipu,ollama,openrouter"
  */
 
-import type { ExtensionAPI, ExtensionContext, BeforeAgentStartEvent } from "@mariozechner/pi-coding-agent";
+import type {
+  ExtensionAPI,
+  ExtensionContext,
+  BeforeAgentStartEvent,
+} from "@mariozechner/pi-coding-agent";
 
 interface ToolGuideState {
-	enabled: boolean;
-	providerId?: string;
-	modelId?: string;
+  enabled: boolean;
+  providerId?: string;
+  modelId?: string;
 }
 
 // Providers that typically benefit from enhanced tool instructions
 const DEFAULT_ENHANCED_PROVIDERS = new Set([
-	"zhipu",        // GLM models
-	"ollama",       // Local models
-	"openrouter",   // Route through various models
-	"groq",         // Fast inference, various models
-	"cerebras",     // Fast inference
-	"xai",          // Grok
-	"mistral",      // Mistral models
-	"local",        // Generic local
+  "zhipu", // GLM models
+  "ollama", // Local models
+  "openrouter", // Route through various models
+  "groq", // Fast inference, various models
+  "cerebras", // Fast inference
+  "xai", // Grok
+  "mistral", // Mistral models
+  "local", // Generic local
 ]);
 
 // Model ID patterns that benefit from enhanced instructions
 const ENHANCED_MODEL_PATTERNS = [
-	/glm/i,
-	/qwen/i,
-	/llama/i,
-	/mistral/i,
-	/gemma/i,
-	/deepseek/i,
-	/command/i,     // Cohere
-	/phi/i,
-	/mixtral/i,
-	/grok/i,
+  /glm/i,
+  /qwen/i,
+  /llama/i,
+  /mistral/i,
+  /gemma/i,
+  /deepseek/i,
+  /command/i, // Cohere
+  /phi/i,
+  /mixtral/i,
+  /grok/i,
 ];
 
 function shouldEnhanceTools(providerId: string, modelId: string): boolean {
-	// Check provider
-	const providers = process.env.PI_TOOL_GUIDE_PROVIDERS?.split(",").map(p => p.trim().toLowerCase())
-		?? Array.from(DEFAULT_ENHANCED_PROVIDERS);
+  // Check provider
+  const providers =
+    process.env.PI_TOOL_GUIDE_PROVIDERS?.split(",").map((p) => p.trim().toLowerCase()) ??
+    Array.from(DEFAULT_ENHANCED_PROVIDERS);
 
-	if (providers.includes(providerId.toLowerCase())) {
-		return true;
-	}
+  if (providers.includes(providerId.toLowerCase())) {
+    return true;
+  }
 
-	// Check model patterns
-	const combined = `${providerId}/${modelId}`.toLowerCase();
-	return ENHANCED_MODEL_PATTERNS.some(pattern => pattern.test(combined));
+  // Check model patterns
+  const combined = `${providerId}/${modelId}`.toLowerCase();
+  return ENHANCED_MODEL_PATTERNS.some((pattern) => pattern.test(combined));
 }
 
 const ENHANCED_TOOL_INSTRUCTIONS = `
@@ -110,70 +115,70 @@ Remember: You have tools available. Use them proactively instead of responding f
 `;
 
 export default function betterToolDiscoveryExtension(pi: ExtensionAPI) {
-	let manualMode: "auto" | "enhanced" | "minimal" | "off" = "auto";
-	let currentProvider = "";
-	let currentModel = "";
+  let manualMode: "auto" | "enhanced" | "minimal" | "off" = "auto";
+  let currentProvider = "";
+  let currentModel = "";
 
-	// Track current model
-	pi.on("model_select", async (event) => {
-		currentProvider = event.model.provider;
-		currentModel = event.model.id;
-	});
+  // Track current model
+  pi.on("model_select", async (event) => {
+    currentProvider = event.model.provider;
+    currentModel = event.model.id;
+  });
 
-	// Restore state on session start
-	pi.on("session_start", async (_event, ctx) => {
-		const model = ctx.model;
-		if (model) {
-			currentProvider = model.provider;
-			currentModel = model.id;
-		}
-	});
+  // Restore state on session start
+  pi.on("session_start", async (_event, ctx) => {
+    const model = ctx.model;
+    if (model) {
+      currentProvider = model.provider;
+      currentModel = model.id;
+    }
+  });
 
-	// Register /tool-guide command
-	pi.registerCommand("tool-guide", {
-		description: "Toggle enhanced tool usage instructions: /tool-guide [auto|enhanced|minimal|off]",
-		handler: async (args, ctx) => {
-			const mode = args.trim().toLowerCase() as typeof manualMode;
+  // Register /tool-guide command
+  pi.registerCommand("tool-guide", {
+    description: "Toggle enhanced tool usage instructions: /tool-guide [auto|enhanced|minimal|off]",
+    handler: async (args, ctx) => {
+      const mode = args.trim().toLowerCase() as typeof manualMode;
 
-			if (!mode || mode === "auto") {
-				manualMode = "auto";
-				ctx.ui.notify("Tool guide: auto (enhanced for compatible models)", "info");
-			} else if (["enhanced", "minimal", "off"].includes(mode)) {
-				manualMode = mode;
-				ctx.ui.notify(`Tool guide: ${mode}`, "info");
-			} else {
-				ctx.ui.notify("Usage: /tool-guide [auto|enhanced|minimal|off]", "warning");
-				return;
-			}
-		},
-	});
+      if (!mode || mode === "auto") {
+        manualMode = "auto";
+        ctx.ui.notify("Tool guide: auto (enhanced for compatible models)", "info");
+      } else if (["enhanced", "minimal", "off"].includes(mode)) {
+        manualMode = mode;
+        ctx.ui.notify(`Tool guide: ${mode}`, "info");
+      } else {
+        ctx.ui.notify("Usage: /tool-guide [auto|enhanced|minimal|off]", "warning");
+        return;
+      }
+    },
+  });
 
-	// Modify system prompt based on model and settings
-	pi.on("before_agent_start", async (event: BeforeAgentStartEvent) => {
-		let extraInstructions = "";
+  // Modify system prompt based on model and settings
+  pi.on("before_agent_start", async (event: BeforeAgentStartEvent) => {
+    let extraInstructions = "";
 
-		switch (manualMode) {
-			case "enhanced":
-				extraInstructions = ENHANCED_TOOL_INSTRUCTIONS;
-				break;
-			case "minimal":
-				extraInstructions = MINIMAL_TOOL_INSTRUCTIONS;
-				break;
-			case "off":
-				return undefined;
-			case "auto":
-			default:
-				if (shouldEnhanceTools(currentProvider, currentModel)) {
-					extraInstructions = ENHANCED_TOOL_INSTRUCTIONS;
-				}
-				break;
-		}
+    switch (manualMode) {
+      case "enhanced":
+        extraInstructions = ENHANCED_TOOL_INSTRUCTIONS;
+        break;
+      case "minimal":
+        extraInstructions = MINIMAL_TOOL_INSTRUCTIONS;
+        break;
+      case "off":
+        return undefined;
+      case "auto":
+      default:
+        if (shouldEnhanceTools(currentProvider, currentModel)) {
+          extraInstructions = ENHANCED_TOOL_INSTRUCTIONS;
+        }
+        break;
+    }
 
-		if (extraInstructions) {
-			return {
-				systemPrompt: event.systemPrompt + extraInstructions,
-			};
-		}
-		return undefined;
-	});
+    if (extraInstructions) {
+      return {
+        systemPrompt: event.systemPrompt + extraInstructions,
+      };
+    }
+    return undefined;
+  });
 }

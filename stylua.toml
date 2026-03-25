@@ -1,0 +1,21 @@
+# StyLua configuration for Lua formatting
+# https://github.com/JohnnyMorganz/StyLua
+
+# Use 2 spaces for indentation (matching current nvim config style)
+indent_type = "Spaces"
+indent_width = 2
+
+# Use single quotes for strings
+quote_style = "AutoPreferSingle"
+
+# Collapse simple statements
+collapse_simple_statement = "Never"
+
+# Max line width (similar to prettier defaults)
+column_width = 100
+
+# Call parentheses
+call_parentheses = "Always"
+
+# Line endings
+line_endings = "Unix"

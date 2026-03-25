@@ -1,0 +1,22 @@
+# Prettier ignore file
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Generated files
+nvim/lazy-lock.json
+
+# Build outputs
+dist/
+build/
+node_modules/
+
+# Data files
+*.mdb
+*.bak
+
+# Config files that shouldn't be reformatted
+alacritty/themes/*.toml
+helix/themes/*.toml

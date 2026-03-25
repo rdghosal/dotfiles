@@ -6,27 +6,25 @@ local act = wezterm.action
 local config = wezterm.config_builder()
 
 -- This is where you actually apply your config choices
-config.font = wezterm.font_with_fallback(
+config.font = wezterm.font_with_fallback({
   {
-    {
-      family = 'Monaspace Argon',
-      weight = 'Medium',
-      harfbuzz_features = {
-        'calt=1',
-        'liga=1',
-        'ss01=1',
-        'ss02=1',
-        'ss03=1',
-        'ss04=0',
-        'ss05=1',
-        'ss06=0',
-        'ss07=1',
-        'ss08=0',
-        'ss09=1',
-      }
-    }
-  }
-)
+    family = 'Monaspace Argon',
+    weight = 'Medium',
+    harfbuzz_features = {
+      'calt=1',
+      'liga=1',
+      'ss01=1',
+      'ss02=1',
+      'ss03=1',
+      'ss04=0',
+      'ss05=1',
+      'ss06=0',
+      'ss07=1',
+      'ss08=0',
+      'ss09=1',
+    },
+  },
+})
 config.enable_tab_bar = false
 config.color_scheme = 'Tomorrow Night (Gogh)'
 config.line_height = 1.50
@@ -41,12 +39,12 @@ config.keys = {
   {
     key = 'LeftArrow',
     mods = 'OPT',
-    action = act.SendKey { key = 'b', mods = 'ALT' },
+    action = act.SendKey({ key = 'b', mods = 'ALT' }),
   },
   {
     key = 'RightArrow',
     mods = 'OPT',
-    action = act.SendKey { key = 'f', mods = 'ALT' },
+    action = act.SendKey({ key = 'f', mods = 'ALT' }),
   },
   -- Cmd+V: Conditional - tmux paste in tmux, native paste elsewhere
   {
@@ -55,13 +53,16 @@ config.keys = {
     action = wezterm.action_callback(function(window, pane)
       if os.getenv('TMUX') then
         -- In tmux: send prefix + P
-        window:perform_action(act.Multiple {
-          act.SendKey { key = 'a', mods = 'CTRL' },
-          act.SendKey { key = 'P' },
-        }, pane)
+        window:perform_action(
+          act.Multiple({
+            act.SendKey({ key = 'a', mods = 'CTRL' }),
+            act.SendKey({ key = 'P' }),
+          }),
+          pane
+        )
       else
         -- Not in tmux: native paste
-        window:perform_action(act.PasteFrom 'Clipboard', pane)
+        window:perform_action(act.PasteFrom('Clipboard'), pane)
       end
     end),
   },
@@ -69,7 +70,7 @@ config.keys = {
   {
     key = 'c',
     mods = 'CMD',
-    action = act.CopyTo 'ClipboardAndPrimarySelection',
+    action = act.CopyTo('ClipboardAndPrimarySelection'),
   },
 }
 

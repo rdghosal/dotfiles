@@ -1,21 +1,21 @@
 local telescope = require('telescope')
 local utils = require('telescope.utils')
 
-telescope.setup {
+telescope.setup({
   previewer = true,
   mirror = true,
   defaults = {
-        cwd = utils.buffer_dir(),
-        sorting_strategy = "ascending",
-        file_ignore_patterns = {
-            "node_modules",
-            "vendor",
-            "site-packages",
-            ".git",
-            "pycache",
-        },
-        layout_config = { prompt_position = "top" }
+    cwd = utils.buffer_dir(),
+    sorting_strategy = 'ascending',
+    file_ignore_patterns = {
+      'node_modules',
+      'vendor',
+      'site-packages',
+      '.git',
+      'pycache',
     },
+    layout_config = { prompt_position = 'top' },
+  },
   extensions = {},
-}
+})
 -- telescope.load_extension 'harpoon'

@@ -57,67 +57,63 @@ vim.keymap.set('n', '<leader>h', builtin.help_tags)
 
 -- NOTE: This is a workaround to a bug in v0.10:
 -- https://github.com/nvim-telescope/telescope.nvim/issues/2661
-vim.keymap.set('n', '<leader>d', function () builtin.diagnostics({severity_bound = 0}) end)
+vim.keymap.set('n', '<leader>d', function()
+  builtin.diagnostics({ severity_bound = 0 })
+end)
 
-vim.keymap.set('n', '<leader>ff',
-    function()
-        builtin.find_files({
-            no_ignore = false,
-            hidden = true,
-            previewer = true,
-            debounce = 250,
-        })
-    end)
-vim.keymap.set('n', '<leader>aff',
-    function()
-        builtin.find_files({
-            no_ignore = true,
-            hidden = true,
-            previewer = true,
-            debounce = 250,
-            file_ignore_patterns = {
-              '.git'
-            }
-        })
-    end)
+vim.keymap.set('n', '<leader>ff', function()
+  builtin.find_files({
+    no_ignore = false,
+    hidden = true,
+    previewer = true,
+    debounce = 250,
+  })
+end)
+vim.keymap.set('n', '<leader>aff', function()
+  builtin.find_files({
+    no_ignore = true,
+    hidden = true,
+    previewer = true,
+    debounce = 250,
+    file_ignore_patterns = {
+      '.git',
+    },
+  })
+end)
 
-vim.keymap.set('n', '<leader>fw',
-    function()
-        builtin.live_grep({
-            debounce = 250,
-        })
-    end)
-vim.keymap.set('n', '<leader>afw',
-    function()
-        builtin.live_grep({
-            no_ignore = true,
-            hidden = true,
-            previewer = true,
-            debounce = 250,
-            file_ignore_patterns = {
-              '.git'
-            }
-        })
-    end)
+vim.keymap.set('n', '<leader>fw', function()
+  builtin.live_grep({
+    debounce = 250,
+  })
+end)
+vim.keymap.set('n', '<leader>afw', function()
+  builtin.live_grep({
+    no_ignore = true,
+    hidden = true,
+    previewer = true,
+    debounce = 250,
+    file_ignore_patterns = {
+      '.git',
+    },
+  })
+end)
 
-vim.keymap.set('n', '<leader>gs',
-    function()
-        builtin.grep_string({
-            debounce = 100,
-        })
-    end)
-vim.keymap.set('n', '<leader>ags',
-    function()
-        builtin.grep_string({
-            no_ignore = true,
-            hidden = true,
-            previewer = true,
-            debounce = 100,
-            file_ignore_patterns = {
-              '.git'
-            }
-        })
-    end)
+vim.keymap.set('n', '<leader>gs', function()
+  builtin.grep_string({
+    debounce = 100,
+  })
+end)
+vim.keymap.set('n', '<leader>ags', function()
+  builtin.grep_string({
+    no_ignore = true,
+    hidden = true,
+    previewer = true,
+    debounce = 100,
+    file_ignore_patterns = {
+      '.git',
+    },
+  })
+end)
 
 -------------------------------- Harpoon ------------------------------------ #
 
@@ -137,7 +133,7 @@ vim.keymap.set('n', '<leader>ags',
 
 ------------------------------ Neo-tree ------------------------------------- #
 
-vim.keymap.set("n", "<leader>e", "<CMD>Neotree toggle<CR>")
+vim.keymap.set('n', '<leader>e', '<CMD>Neotree toggle<CR>')
 
 --------------------------------- Emmet ------------------------------------- #
 

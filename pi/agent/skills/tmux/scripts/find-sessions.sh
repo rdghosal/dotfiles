@@ -24,16 +24,35 @@ socket_dir="${CLAUDE_TMUX_SOCKET_DIR:-${TMPDIR:-/tmp}/claude-tmux-sockets}"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    -L|--socket)      socket_name="${2-}"; shift 2 ;;
-    -S|--socket-path) socket_path="${2-}"; shift 2 ;;
-    -A|--all)         scan_all=true; shift ;;
-    -q|--query)       query="${2-}"; shift 2 ;;
-    -h|--help)        usage; exit 0 ;;
-    *) echo "Unknown option: $1" >&2; usage; exit 1 ;;
+    -L | --socket)
+      socket_name="${2-}"
+      shift 2
+      ;;
+    -S | --socket-path)
+      socket_path="${2-}"
+      shift 2
+      ;;
+    -A | --all)
+      scan_all=true
+      shift
+      ;;
+    -q | --query)
+      query="${2-}"
+      shift 2
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "Unknown option: $1" >&2
+      usage
+      exit 1
+      ;;
   esac
 done
 
-if [[ "$scan_all" == true && ( -n "$socket_name" || -n "$socket_path" ) ]]; then
+if [[ "$scan_all" == true && (-n "$socket_name" || -n "$socket_path") ]]; then
   echo "Cannot combine --all with -L or -S" >&2
   exit 1
 fi
@@ -49,7 +68,8 @@ if ! command -v tmux >/dev/null 2>&1; then
 fi
 
 list_sessions() {
-  local label="$1"; shift
+  local label="$1"
+  shift
   local tmux_cmd=(tmux "$@")
 
   if ! sessions="$("${tmux_cmd[@]}" list-sessions -F '#{session_name}\t#{session_attached}\t#{session_created_string}' 2>/dev/null)"; then

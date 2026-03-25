@@ -31,7 +31,7 @@ Or to capture the output once:
   tmux -S "$SOCKET" capture-pane -p -J -t claude-lldb:0.0 -S -200
 ```
 
-This must ALWAYS be printed right after a session was started and once again at the end of the tool loop.  But the earlier you send it, the happier the user will be.
+This must ALWAYS be printed right after a session was started and once again at the end of the tool loop. But the earlier you send it, the happier the user will be.
 
 ## Socket convention
 
@@ -72,9 +72,11 @@ Some special rules for processes:
 ## Synchronizing / waiting for prompts
 
 - Use timed polling to avoid races with interactive tools. Example: wait for a Python prompt before sending code:
-  ```bash
-  ./scripts/wait-for-text.sh -t "$SESSION":0.0 -p '^>>>' -T 15 -l 4000
-  ```
+
+```bash
+./scripts/wait-for-text.sh -t "$SESSION":0.0 -p '^>>>' -T 15 -l 4000
+```
+
 - For long-running commands, poll for completion text (`"Type quit to exit"`, `"Program exited"`, etc.) before proceeding.
 
 ## Interactive tool recipes

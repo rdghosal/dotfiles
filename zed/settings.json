@@ -43,6 +43,6 @@
   "theme": {
     "mode": "system",
     "light": "Gruvbox Light",
-    "dark": "Tomorrow Night",
-  },
+    "dark": "Tomorrow Night"
+  }
 }
