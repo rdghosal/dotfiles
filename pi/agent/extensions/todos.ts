@@ -1865,8 +1865,6 @@ export default function todosExtension(pi: ExtensionAPI) {
 			// Create initial todo file with optional title from args
 			const defaultBody = `## Description
 
-Ask questions when you are unsure. Do not make assumptions.
-
 ## Acceptance Criteria
 
 - [ ] 
@@ -1874,6 +1872,11 @@ Ask questions when you are unsure. Do not make assumptions.
 ## References
 
 - 
+
+## Notes
+
+Ask questions when you are unsure. Do not make assumptions.
+
 `;
 			const todo: TodoRecord = {
 				id,
