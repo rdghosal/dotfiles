@@ -6,6 +6,7 @@ test*
 # Generated session data
 pi/agent/sessions/
 pi/agent/auth.json
+.pi/
 
 # Generated database files
 *.mdb
