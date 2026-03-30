@@ -77,6 +77,57 @@ BREAKING CHANGE: /api/v1/flashcards has been removed. Use /api/v1/quiz/vocabular
 
 Both the `!` and the footer are required.
 
+## Validation Before Finishing
+
+Before declaring work complete, run the full validation suite to catch issues that
+pre-commit hooks don't check (tests, complexity, type checking). Pre-commit hooks
+are fast guardrails for every commit; validation is the comprehensive check before
+handoff.
+
+### When to Validate
+
+Run validation when:
+
+- Completing a task or PR
+- Handing off to human review
+- Making significant changes that could affect tests or complexity
+
+### How to Validate
+
+Check if the project has a validation command:
+
+```bash
+# Check for project-specific validation
+cat Makefile 2>/dev/null | grep -E "^(validate|check|test-all)"
+cat package.json 2>/dev/null | jq -r '.scripts | keys[]' 2>/dev/null | grep -E "(validate|check)"
+```
+
+If no project-specific command exists, run pre-commit on all files:
+
+```bash
+pre-commit run --all-files
+```
+
+### What Validation Catches
+
+| Check | Why It Matters |
+|-------|----------------|
+| Tests | Ensures changes don't break existing functionality |
+| Cyclomatic complexity | Prevents unmaintainable code |
+| Type checking | Full project type safety (not just changed files) |
+
+**Note:** Dependency audits, SAST, and license compliance run in CI, not locally. These checks are triggered by lockfile changes or run on a schedule.
+
+### Validation Failures
+
+If validation fails:
+
+1.  Fix the issues immediately
+2.  Amend the commit or make a new commit with fixes
+3.  Re-run validation to confirm
+
+Do not declare work complete with failing validation.
+
 ---
 
 ## Cross-Cutting Rules
