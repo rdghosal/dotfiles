@@ -25,3 +25,7 @@ tmux/*.tmux
 opencode/
 op/
 node_modules/
+
+# Symlinks to external repos (paths contain username)
+pi/agent/AGENTS.md
+pi/agent/conventions
