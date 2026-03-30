@@ -1,5 +1,13 @@
 # Agent Instructions
 
+## Accuracy & Uncertainty
+
+- **Ask before assuming.** When requirements, context, or facts are unclear, ask for clarification. Guessing leads to wrong solutions.
+- **Seek clarity proactively.** If information isn't available, ask for it. Don't fabricate facts, paths, API signatures, or error messages.
+- **Verify before asserting.** Use tools to check file contents, command outputs, and system state. Don't rely on memory or inference.
+- **Distinguish fact from inference.** State what you know from evidence, and clearly mark what you're inferring or proposing.
+- **Questions over guesses.** An asked question leads to the right answer. A guessed answer leads to rework.
+
 ## Design Context
 
 Before doing any UI or design work, check if `.impeccable.md` exists in the project root.
@@ -19,6 +27,42 @@ Simple code is easier to understand, maintain, and debug — for humans and AI a
 - **Design data structures first.** Good data organization makes algorithms self-evident.
 - **Optimize for readability, not cleverness.** The next reader (human or agent) should grasp intent quickly.
 - **Minimize branching.** Fewer conditionals mean fewer edge cases and easier reasoning.
+
+## Security Practices
+
+### Input Handling
+
+All external input is untrusted until validated. This includes user input, API responses, file contents, environment variables, and query parameters.
+
+- **Validate at boundaries.** Check structure, type, and constraints at entry points—not deep in business logic.
+- **Whitelist over blacklist.** Define what's allowed; reject everything else. Blacklists miss edge cases.
+- **Sanitize at output.** Validate structure early; encode/escape at the point of use (HTML, SQL, shell, URL).
+- **Never trust client-side validation.** It's for UX, not security. Re-validate on the server.
+
+### Injection Prevention
+
+- **Use parameterized queries.** Never concatenate user input into SQL, NoSQL, or LDAP queries. Use prepared statements or ORM methods that handle escaping.
+- **Escape shell arguments.** Never pass user input directly to shell commands. Use argument arrays or established escaping functions.
+- **Context-aware encoding.** HTML, JavaScript, CSS, and URL contexts require different escaping rules. Use established libraries.
+
+### Authentication and Authorization
+
+- **Fail closed.** Default to denial; require explicit permission. Errors should not grant access.
+- **Verify on every request.** Don't assume a request is authorized because it reached a handler.
+
+### Secrets and Credentials
+
+- **Never hardcode secrets.** Use environment variables, secret managers, or encrypted stores. Secrets in source control are compromised secrets.
+- **Don't log sensitive data.** Credentials, tokens, API keys, and PII should never appear in logs. Mask or redact before logging.
+
+### Data Protection
+
+- **Hash passwords properly.** Use bcrypt, scrypt, or Argon2 with appropriate work factors. Never MD5, SHA1, or plain SHA-256.
+
+### Error Handling
+
+- **Don't leak internals.** Stack traces, database errors, and file paths should not reach users. Log details internally; return generic messages externally.
+- **Handle errors explicitly.** Catch blocks should do something—log, recover, or re-raise. Silent swallowing hides problems.
 
 ## Coding Conventions
 
@@ -127,8 +171,6 @@ If validation fails:
 3.  Re-run validation to confirm
 
 Do not declare work complete with failing validation.
-
----
 
 ## Cross-Cutting Rules
 
