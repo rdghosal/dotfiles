@@ -182,3 +182,5 @@ fcd-widget() {
 	zle reset-prompt
 }
 zle -N fcd-widget
+
+eval "$(zoxide init zsh)"
