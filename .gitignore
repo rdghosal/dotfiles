@@ -26,8 +26,6 @@ opencode/
 op/
 node_modules/
 
-# Secrets and credentials
-secrets/
 
 # Symlinks to external repos (paths contain username)
 pi/agent/AGENTS.md
