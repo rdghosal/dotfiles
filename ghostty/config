@@ -2,7 +2,7 @@
 # Matches kitty.conf settings
 
 # Font configuration
-font-family = "Fira Code NL"
+font-family = "Fira Code"
 font-family-italic = "Monaspace Radon Var"
 font-family-bold-italic = "Monaspace Radon Var"
 font-size = 17
