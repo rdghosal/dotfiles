@@ -2,10 +2,13 @@
 # Matches kitty.conf settings
 
 # Font configuration
-font-family = "Fira Code"
+font-family = "Fira Code NL"
+font-family-italic = "Monaspace Radon Var"
+font-family-bold-italic = "Monaspace Radon Var"
 font-size = 17
 font-variation = wght=400
 font-variation-bold = wght=700
+# Fira Code features (regular/bold)
 font-feature = +calt
 font-feature = +liga
 font-feature = +cv06
@@ -13,6 +16,16 @@ font-feature = +cv14
 font-feature = +zero
 font-feature = +ss02
 font-feature = +ss07
+# Monaspace Radon features (italic/bold-italic); font-feature is global but
+# features unsupported by a font are silently ignored.
+# +cv01 is intentionally omitted: it changes Fira Code's 'a' glyph as a side effect,
+# since Ghostty cannot scope features per font family.
+font-feature = +ss01
+font-feature = +ss03
+font-feature = +ss04
+font-feature = +ss05
+font-feature = +ss06
+font-feature = +ss08
 
 # Line height (cell height adjustment)
 adjust-cell-height = 20%
