@@ -1,7 +1,5 @@
 # pi configuration directory
 export PI_CODING_AGENT_DIR="$HOME/.config/pi/agent"
-export MISTRAL_API_KEY=$(op item get "Mistral API - Experiment" --vault "dev" --field "value" --reveal)
-export OPENCODE_API_KEY=$(op item get "OpenCode Zen API Key" --vault "dev" --field "value" --reveal)
 
 alias :q="exit"
 alias nv="nvim ."
@@ -182,5 +180,14 @@ fcd-widget() {
 	zle reset-prompt
 }
 zle -N fcd-widget
+
+# ── agentic tool wrappers ─────────────────────────────────────────────────────
+# Keys are injected at invocation via op run; no secrets in the shell environment.
+_OP_SECRETS="$HOME/.config/secrets/op-secrets"
+_PI_BIN="${commands[pi]}"
+_OPENCODE_BIN="${commands[opencode]}"
+
+pi()       { op run --env-file="$_OP_SECRETS" -- "$_PI_BIN" "$@" }
+opencode() { op run --env-file="$_OP_SECRETS" -- "$_OPENCODE_BIN" "$@" }
 
 eval "$(zoxide init zsh)"
