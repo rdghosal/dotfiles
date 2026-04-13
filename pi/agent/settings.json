@@ -1,7 +1,7 @@
 {
-  "lastChangelogVersion": "0.65.0",
+  "lastChangelogVersion": "0.66.1",
   "defaultProvider": "opencode",
-  "defaultModel": "claude-sonnet-4-6",
+  "defaultModel": "glm-5.1",
   "hideThinkingBlock": false,
   "theme": "tomorrow-night-van-gogh",
   "defaultThinkingLevel": "high",
