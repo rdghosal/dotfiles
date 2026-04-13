@@ -1,8 +1,12 @@
 # pi configuration directory
 export PI_CODING_AGENT_DIR="$HOME/.config/pi/agent"
 
+# Claude Code configuration directory
+export CLAUDE_CONFIG_DIR="$HOME/.config/claude"
+
 alias :q="exit"
 alias nv="nvim ."
+
 alias python="python3.11"
 alias cl="clear"
 alias cld="claude --dangerously-skip-permissions"
@@ -188,7 +192,7 @@ _OP_SECRETS="$HOME/.config/secrets/op-secrets"
 _PI_BIN="${commands[pi]}"
 _OPENCODE_BIN="${commands[opencode]}"
 
-pi()       { op run --env-file="$_OP_SECRETS" -- "$_PI_BIN" "$@" }
+pi()       { FORCE_COLOR=3 op run --env-file="$_OP_SECRETS" -- "$_PI_BIN" "$@" }
 opencode() { op run --env-file="$_OP_SECRETS" -- "$_OPENCODE_BIN" "$@" }
 
 eval "$(zoxide init zsh)"
