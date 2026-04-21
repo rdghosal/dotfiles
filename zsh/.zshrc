@@ -195,4 +195,30 @@ _OPENCODE_BIN="${commands[opencode]}"
 pi()       { FORCE_COLOR=3 op run --env-file="$_OP_SECRETS" -- "$_PI_BIN" "$@" }
 opencode() { op run --env-file="$_OP_SECRETS" -- "$_OPENCODE_BIN" "$@" }
 
+# ── sandboxed dev container ───────────────────────────────────────────────────
+_AGENTISH_DIR="$HOME/code/agentish"
+
+sandbox() {
+  local repo rebuild_flags=()
+  repo=$(git rev-parse --show-toplevel 2>/dev/null) || {
+    echo "sandbox: not inside a git repository" >&2
+    return 1
+  }
+  if [[ "$1" == "--rebuild" ]]; then
+    rebuild_flags=(--remove-existing-container)
+  elif [[ "$1" == "--rebuild-nocache" ]]; then
+    rebuild_flags=(--remove-existing-container --build-no-cache)
+  fi
+  local config="$_AGENTISH_DIR/.devcontainer/devcontainer.json"
+  echo "Launching sandbox for $(basename "$repo")..."
+  devcontainer up \
+    --workspace-folder "$repo" \
+    --config "$config" \
+    "${rebuild_flags[@]}" \
+    && devcontainer exec \
+         --workspace-folder "$repo" \
+         --config "$config" \
+         zsh -l
+}
+
 eval "$(zoxide init zsh)"
