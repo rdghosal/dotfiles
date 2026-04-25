@@ -1,11 +1,11 @@
-nvim/plugin
-tmux/plugins
+nvim/.config/nvim/plugin
+tmux/.config/tmux/plugins
 .DS_Store
 test*
 
 # Generated session data
-pi/agent/sessions/
-pi/agent/auth.json
+pi/.config/pi/agent/sessions/
+pi/.config/pi/agent/auth.json
 .pi/
 
 # Generated database files
@@ -19,7 +19,7 @@ github-copilot/
 yarn/
 
 # Downloaded/generated theme files
-tmux/*.tmux
+tmux/.config/tmux/*.tmux
 
 # Local configuration
 opencode/
@@ -28,9 +28,9 @@ node_modules/
 
 
 # Symlinks to external repos (paths contain username)
-pi/agent/AGENTS.md
-pi/agent/conventions
-pi/agent/skills
+pi/.config/pi/agent/AGENTS.md
+pi/.config/pi/agent/conventions
+pi/.config/pi/agent/skills
 
 # Claude Code runtime/ephemeral data
 claude/.claude.json

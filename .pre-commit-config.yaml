@@ -32,7 +32,7 @@ repos:
         args: [--severity=warning]
         exclude: |
           (?x)^(
-            zsh/\.zshrc
+            zsh/\.config/zsh/\.zshrc
           )$
 
   - repo: https://github.com/scop/pre-commit-shfmt
@@ -42,7 +42,7 @@ repos:
         args: [-i=2, -ci, -w]
         exclude: |
           (?x)^(
-            zsh/\.zshrc
+            zsh/\.config/zsh/\.zshrc
           )$
 
   # Lua formatting
@@ -74,7 +74,6 @@ repos:
     hooks:
       - id: markdownlint
         args: [--fix, --config, .markdownlint.yaml, --]
-        exclude: ^pi/plans/
 
 
 
