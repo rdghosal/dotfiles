@@ -17,11 +17,17 @@ make install
 | Package | Lands at |
 |---------|----------|
 | `bat`   | `~/.config/bat/` |
+| `dunst` | `~/.config/dunst/dunstrc` |
 | `git`   | `~/.config/git/ignore` (global gitignore, auto-read by git) |
+| `gtk`   | `~/.config/gtk-3.0/settings.ini` |
+| `i3`    | `~/.config/i3/` (config, i3blocks.conf, scripts, keybindings) |
 | `kitty` | `~/.config/kitty/` |
 | `nvim`  | `~/.config/nvim/` |
 | `pi`    | `~/.config/pi/agent/` |
+| `profile` | `~/.profile` (env vars: GDK_SCALE, QT_SCALE_FACTOR, etc.) |
+| `rofi`  | `~/.config/rofi/` |
 | `tmux`  | `~/.config/tmux/tmux.conf` (tmux 3.1+) |
+| `xresources` | `~/.Xresources` (Xft DPI, cursor theme) |
 | `zsh`   | `~/.zshenv` (sets `ZDOTDIR`) + `~/.config/zsh/.zshrc` |
 
 ## Not stowed (kept in repo as reference / manual setup)
@@ -58,7 +64,7 @@ Mason packages (LSPs, formatters, linters) and Treesitter parsers are out of sco
 ## Verifying changes
 
 ```sh
-for p in bat git kitty nvim pi tmux zsh; do
+for p in bat dunst git gtk i3 kitty nvim pi profile rofi tmux xresources zsh; do
   echo "=== $p ==="
   stow -n -v -t ~ "$p"
 done

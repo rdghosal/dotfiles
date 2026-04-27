@@ -1,4 +1,4 @@
-PACKAGES := bat git kitty nvim pi tmux zsh
+PACKAGES := bat dunst git gtk i3 kitty nvim pi profile rofi tmux xresources zsh
 
 .PHONY: install force-install uninstall restow list
 
