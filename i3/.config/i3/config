@@ -218,8 +218,8 @@ bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/volume_b
 #bindsym XF86MonBrightnessUp   exec --no-startup-id ~/.config/i3/scripts/volume_brightness2.sh screen_brightness_up
 #bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/volume_brightness2.sh screen_brightness_down
 
-# bindsym $mod+Shift+0 exec --no-startup-id ~/.config/i3/scripts/clamshell.sh
-# bindsym $mod+Shift+1 exec --no-startup-id ~/.config/i3/scripts/laptop.sh
+bindsym $mod+F9 exec --no-startup-id ~/.config/i3/scripts/clamshell.sh
+bindsym $mod+F10 exec --no-startup-id ~/.config/i3/scripts/laptop.sh
 
 # change focus
 bindsym $mod+h focus left

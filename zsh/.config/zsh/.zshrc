@@ -1,3 +1,6 @@
+# npm global prefix (no sudo needed for -g installs)
+export PATH="$HOME/.npm-global/bin:$PATH"
+
 # pi configuration directory
 export PI_CODING_AGENT_DIR="$HOME/.config/pi/agent"
 
@@ -7,7 +10,7 @@ export CLAUDE_CONFIG_DIR="$HOME/.config/claude"
 alias :q="exit"
 alias nv="nvim ."
 
-alias python="python3.11"
+# alias python="python3.11"
 alias cl="clear"
 alias cld="claude --dangerously-skip-permissions"
 export EDITOR="nvim"
@@ -126,12 +129,12 @@ source $ZSH/oh-my-zsh.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
-. "$HOME/.cargo/env"
-source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+[ -r "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+source "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # Created by `pipx` on 2024-08-13 23:30:48
-export PATH="$PATH:/Users/rghosal/.local/bin"
+# export PATH="$PATH:/Users/rghosal/.local/bin"
 
 # fzf directory navigation from ~ (requires fd)
 # Full pane height with --height 100%
@@ -189,7 +192,7 @@ zle -N fcd-widget
 # ── agentic tool wrappers ─────────────────────────────────────────────────────
 # Keys are injected at invocation via op run; no secrets in the shell environment.
 _OP_SECRETS="$HOME/.config/secrets/op-secrets"
-_PI_BIN="${commands[pi]}"
+_PI_BIN="$HOME/.npm-global/bin/pi"
 _OPENCODE_BIN="${commands[opencode]}"
 
 pi()       { FORCE_COLOR=3 op run --env-file="$_OP_SECRETS" -- "$_PI_BIN" "$@" }
